@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PeriodoCreateDlg" widgetVar="PeriodoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{propiedades.CreatePeriodoTitle}" closeOnEscape="true">
+
+            <h:form id="PeriodoCreateForm">
+
+                <h:panelGroup id="display" rendered="#{periodoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{propiedades.CreatePeriodoLabel_periNombre}" for="periNombre" />
+                        <p:inputText id="periNombre" value="#{periodoController.selected.periNombre}" title="#{propiedades.CreatePeriodoTitle_periNombre}" size="15" maxlength="15"/>
+
+                        <p:outputLabel value="#{propiedades.CreatePeriodoLabel_periVigencia}" for="periVigencia" />
+                        <p:inputText id="periVigencia" value="#{periodoController.selected.periVigencia}" title="#{propiedades.CreatePeriodoTitle_periVigencia}"/>
+
+                        <p:outputLabel value="#{propiedades.CreatePeriodoLabel_periDescripcion}" for="periDescripcion" />
+                        <p:inputText id="periDescripcion" value="#{periodoController.selected.periDescripcion}" title="#{propiedades.CreatePeriodoTitle_periDescripcion}" size="100" maxlength="100"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{periodoController.saveNew}" value="#{propiedades.Save}" update="display,:PeriodoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PeriodoCreateDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('PeriodoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="DocenteViewPage" lazy="true">
+        <pm:header title="#{propiedades.ViewDocenteTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:DocenteListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="DocenteViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{docenteController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewDocenteLabel_doceCodigo}"/>
+                            <h:outputText value="#{docenteController.selected.doceCodigo}" title="#{propiedades.ViewDocenteTitle_doceCodigo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewDocenteLabel_doceNombres}"/>
+                            <h:outputText value="#{docenteController.selected.doceNombres}" title="#{propiedades.ViewDocenteTitle_doceNombres}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewDocenteLabel_doceApellidos}"/>
+                            <h:outputText value="#{docenteController.selected.doceApellidos}" title="#{propiedades.ViewDocenteTitle_doceApellidos}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewDocenteLabel_doceCedula}"/>
+                            <h:outputText value="#{docenteController.selected.doceCedula}" title="#{propiedades.ViewDocenteTitle_doceCedula}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewDocenteLabel_doceEmailUce}"/>
+                            <h:outputText value="#{docenteController.selected.doceEmailUce}" title="#{propiedades.ViewDocenteTitle_doceEmailUce}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewDocenteLabel_doceEmailPersonal}"/>
+                            <h:outputText value="#{docenteController.selected.doceEmailPersonal}" title="#{propiedades.ViewDocenteTitle_doceEmailPersonal}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewDocenteLabel_doceFechaNacimiento}"/>
+                            <h:outputText value="#{docenteController.selected.doceFechaNacimiento}" title="#{propiedades.ViewDocenteTitle_doceFechaNacimiento}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewDocenteLabel_doceGenero}"/>
+                            <h:outputText value="#{docenteController.selected.doceGenero}" title="#{propiedades.ViewDocenteTitle_doceGenero}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewDocenteLabel_doceTelefono}"/>
+                            <h:outputText value="#{docenteController.selected.doceTelefono}" title="#{propiedades.ViewDocenteTitle_doceTelefono}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewDocenteLabel_doceCelular}"/>
+                            <h:outputText value="#{docenteController.selected.doceCelular}" title="#{propiedades.ViewDocenteTitle_doceCelular}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewDocenteLabel_doceDireccion}"/>
+                            <h:outputText value="#{docenteController.selected.doceDireccion}" title="#{propiedades.ViewDocenteTitle_doceDireccion}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewDocenteLabel_dediCodigo}"/>
+                            <h:outputText value="#{docenteController.selected.dediCodigo.dediDescripcion}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewDocenteLabel_titrCodigo}"/>
+                            <h:outputText value="#{docenteController.selected.titrCodigo.titrDescripcion}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="PeriodoCreatePage" lazy="true">
+        <pm:header title="#{propiedades.CreatePeriodoTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:PeriodoListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="PeriodoCreateForm">
+
+                <h:panelGroup id="display" rendered="#{periodoController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.CreatePeriodoLabel_periNombre}" for="periNombre" />
+                            <p:inputText id="periNombre" value="#{periodoController.selected.periNombre}" title="#{propiedades.CreatePeriodoTitle_periNombre}" size="15" maxlength="15"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.CreatePeriodoLabel_periVigencia}" for="periVigencia" />
+                            <p:inputText id="periVigencia" value="#{periodoController.selected.periVigencia}" title="#{propiedades.CreatePeriodoTitle_periVigencia}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.CreatePeriodoLabel_periDescripcion}" for="periDescripcion" />
+                            <p:inputText id="periDescripcion" value="#{periodoController.selected.periDescripcion}" title="#{propiedades.CreatePeriodoTitle_periDescripcion}" size="100" maxlength="100"/>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{periodoController.saveNew}" value="#{propiedades.Save}" update="display,:PeriodoListPage:PeriodoListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:PeriodoListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RolViewDlg" widgetVar="RolViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.ViewRolTitle}" closeOnEscape="true">
+
+            <h:form id="RolViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{rolController.selected != null}">
+
+                        <h:outputText value="#{propiedades.ViewRolLabel_rolCodigo}"/>
+                        <h:outputText value="#{rolController.selected.rolCodigo}" title="#{propiedades.ViewRolTitle_rolCodigo}"/>
+
+                        <h:outputText value="#{propiedades.ViewRolLabel_rolNombre}"/>
+                        <h:outputText value="#{rolController.selected.rolNombre}" title="#{propiedades.ViewRolTitle_rolNombre}"/>
+
+                        <h:outputText value="#{propiedades.ViewRolLabel_rolDescripcion}"/>
+                        <h:outputText value="#{rolController.selected.rolDescripcion}" title="#{propiedades.ViewRolTitle_rolDescripcion}"/>
+
+                        <h:outputText value="#{propiedades.ViewRolLabel_rolEstado}"/>
+                        <h:outputText value="#{rolController.selected.rolEstado}" title="#{propiedades.ViewRolTitle_rolEstado}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{propiedades.Close}" onclick="PF('RolViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

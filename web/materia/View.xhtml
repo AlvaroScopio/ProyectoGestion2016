@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MateriaViewDlg" widgetVar="MateriaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.ViewMateriaTitle}" closeOnEscape="true">
+
+            <h:form id="MateriaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{materiaController.selected != null}">
+
+                        <h:outputText value="#{propiedades.ViewMateriaLabel_mateCodigo}"/>
+                        <h:outputText value="#{materiaController.selected.mateCodigo}" title="#{propiedades.ViewMateriaTitle_mateCodigo}"/>
+
+                        <h:outputText value="#{propiedades.ViewMateriaLabel_mateNombre}"/>
+                        <h:outputText value="#{materiaController.selected.mateNombre}" title="#{propiedades.ViewMateriaTitle_mateNombre}"/>
+
+                        <h:outputText value="#{propiedades.ViewMateriaLabel_mateCreditos}"/>
+                        <h:outputText value="#{materiaController.selected.mateCreditos}" title="#{propiedades.ViewMateriaTitle_mateCreditos}"/>
+
+                        <h:outputText value="#{propiedades.ViewMateriaLabel_mateDescripcion}"/>
+                        <h:outputText value="#{materiaController.selected.mateDescripcion}" title="#{propiedades.ViewMateriaTitle_mateDescripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{propiedades.Close}" onclick="PF('MateriaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

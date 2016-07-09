@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-feb-2016 18:02:33 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.Edificio" table="edificio" schema="public">
+        <id name="edifCodigo" type="int">
+            <column name="edif_codigo" />
+            <generator class="assigned" />
+        </id>
+        <property name="edifNombre" type="string">
+            <column name="edif_nombre" length="30" />
+        </property>
+        <property name="edifDescripcion" type="string">
+            <column name="edif_descripcion" length="100" />
+        </property>
+        <set name="aulas" table="aula" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="edif_codigo" />
+            </key>
+            <one-to-many class="model.Aula" />
+        </set>
+    </class>
+</hibernate-mapping>

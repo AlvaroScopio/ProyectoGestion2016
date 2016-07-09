@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="EdificioListForm">
+
+        <h2 align="center">Lista de Edificios</h2>
+        <hr/>
+
+        
+        <p:panel>
+            <p:contextMenu id="EdificioDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{propiedades.Create}" onclick="document.getElementById('EdificioListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{propiedades.View}" onclick="document.getElementById('EdificioListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{propiedades.Edit}" onclick="document.getElementById('EdificioListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{propiedades.Delete}" onclick="document.getElementById('EdificioListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{propiedades.EdificioMenuItem_aulaCollection}" icon="ui-icon-search"  action="#{edificioController.navigateAulaCollection}" disabled="#{empty edificioController.selected.aulaCollection}" ajax="false"/>  
+            </p:contextMenu>
+            
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{propiedades.Create}" actionListener="#{edificioController.prepareCreate}" update=":EdificioCreateForm" oncomplete="PF('EdificioCreateDialog').show()"/>
+            <br/>
+            <br/>
+            
+            <p:dataTable id="datalist"
+                         value="#{edificioController.items}"
+                         lazy="false"
+                         rowKey="#{item.edifCodigo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{edificioController.selected}">
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:EdificioDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:EdificioDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('EdificioListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.edifCodigo}" filterBy="#{item.edifCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListEdificioTitle_edifCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.edifCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.edifNombre}" filterBy="#{item.edifNombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListEdificioTitle_edifNombre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.edifNombre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.edifDescripcion}" filterBy="#{item.edifDescripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListEdificioTitle_edifDescripcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.edifDescripcion}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{propiedades.View}" update=":EdificioViewForm" oncomplete="PF('EdificioViewDialog').show()" disabled="#{empty edificioController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{propiedades.Edit}" update=":EdificioEditForm" oncomplete="PF('EdificioEditDialog').show()" disabled="#{empty edificioController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{propiedades.Delete}" actionListener="#{edificioController.delete}" update=":growl,datalist" disabled="#{empty edificioController.selected}">
+                <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="RolListForm">
+
+        <h2 align="center">Lista de Roles</h2>
+        <hr/>
+
+        <p:panel>
+            <p:contextMenu id="RolDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{propiedades.Create}" onclick="document.getElementById('RolListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{propiedades.View}" onclick="document.getElementById('RolListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{propiedades.Edit}" onclick="document.getElementById('RolListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{propiedades.Delete}" onclick="document.getElementById('RolListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{propiedades.RolMenuItem_usuarioCollection}" icon="ui-icon-search"  action="#{rolController.navigateUsuarioCollection}" disabled="#{empty rolController.selected.usuarioCollection}" ajax="false"/>  
+            </p:contextMenu>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{propiedades.Create}" actionListener="#{rolController.prepareCreate}" update=":RolCreateForm" oncomplete="PF('RolCreateDialog').show()"/>
+            <br/>
+            <br/>
+
+            <p:dataTable id="datalist"
+                         value="#{rolController.items}"
+                         lazy="false"
+                         rowKey="#{item.rolCodigo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{rolController.selected}">
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:RolDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:RolDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('RolListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.rolCodigo}" filterBy="#{item.rolCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListRolTitle_rolCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.rolCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.rolNombre}" filterBy="#{item.rolNombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListRolTitle_rolNombre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.rolNombre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.rolDescripcion}" filterBy="#{item.rolDescripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListRolTitle_rolDescripcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.rolDescripcion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.rolEstado}" filterBy="#{item.rolEstado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListRolTitle_rolEstado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.rolEstado}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{propiedades.View}" update=":RolViewForm" oncomplete="PF('RolViewDialog').show()" disabled="#{empty rolController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{propiedades.Edit}" update=":RolEditForm" oncomplete="PF('RolEditDialog').show()" disabled="#{empty rolController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{propiedades.Delete}" actionListener="#{rolController.delete}" update=":growl,datalist" disabled="#{empty rolController.selected}">
+                <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

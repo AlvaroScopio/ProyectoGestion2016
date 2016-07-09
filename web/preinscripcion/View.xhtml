@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PreinscripcionViewDlg" widgetVar="PreinscripcionViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.ViewPreinscripcionTitle}" closeOnEscape="true">
+
+            <h:form id="PreinscripcionViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{preinscripcionController.selected != null}">
+
+                        <h:outputText value="#{propiedades.ViewPreinscripcionLabel_preiCodigo}"/>
+                        <h:outputText value="#{preinscripcionController.selected.preiCodigo}" title="#{propiedades.ViewPreinscripcionTitle_preiCodigo}"/>
+
+                        <h:outputText value="#{propiedades.ViewPreinscripcionLabel_estuCodigo}"/>
+                        <h:outputText value="#{preinscripcionController.selected.estuCodigo.estuCodigo}"/>
+
+                        <h:outputText value="#{propiedades.ViewPreinscripcionLabel_mateCodigo}"/>
+                        <h:outputText value="#{preinscripcionController.selected.mateCodigo.mateDescripcion}"/>
+
+                        <h:outputText value="#{propiedades.ViewPreinscripcionLabel_periCodigo}"/>
+                        <h:outputText value="#{preinscripcionController.selected.periCodigo.periDescripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{propiedades.Close}" onclick="PF('PreinscripcionViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-feb-2016 18:02:33 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.Usuario" table="usuario" schema="public">
+        <id name="userCodigo" type="int">
+            <column name="user_codigo" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="rol" class="model.Rol" fetch="select">
+            <column name="rol_codigo" />
+        </many-to-one>
+        <property name="userNombre" type="string">
+            <column name="user_nombre" length="20" />
+        </property>
+        <property name="userNombreCompleto" type="string">
+            <column name="user_nombre_completo" length="50" />
+        </property>
+        <property name="userPassword" type="string">
+            <column name="user_password" length="100" />
+        </property>
+        <property name="userEstado" type="java.lang.Integer">
+            <column name="user_estado" />
+        </property>
+    </class>
+</hibernate-mapping>

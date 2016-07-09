@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AulaViewDlg" widgetVar="AulaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.ViewAulaTitle}" closeOnEscape="true">
+
+            <h:form id="AulaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{aulaController.selected != null}">
+
+                        <h:outputText value="#{propiedades.ViewAulaLabel_aulaCodigo}"/>
+                        <h:outputText value="#{aulaController.selected.aulaCodigo}" title="#{propiedades.ViewAulaTitle_aulaCodigo}"/>
+
+                        <h:outputText value="#{propiedades.ViewAulaLabel_aulaNombre}"/>
+                        <h:outputText value="#{aulaController.selected.aulaNombre}" title="#{propiedades.ViewAulaTitle_aulaNombre}"/>
+
+                        <h:outputText value="#{propiedades.ViewAulaLabel_aulaCapacidad}"/>
+                        <h:outputText value="#{aulaController.selected.aulaCapacidad}" title="#{propiedades.ViewAulaTitle_aulaCapacidad}"/>
+
+                        <h:outputText value="#{propiedades.ViewAulaLabel_aulaDescripcion}"/>
+                        <h:outputText value="#{aulaController.selected.aulaDescripcion}" title="#{propiedades.ViewAulaTitle_aulaDescripcion}"/>
+
+                        <h:outputText value="#{propiedades.ViewAulaLabel_carrCodigo}"/>
+                        <h:outputText value="#{aulaController.selected.carrCodigo.carrNombre}"/>
+
+                        <h:outputText value="#{propiedades.ViewAulaLabel_edifCodigo}"/>
+                        <h:outputText value="#{aulaController.selected.edifCodigo.edifNombre}"/>
+
+                        <h:outputText value="#{propiedades.ViewAulaLabel_tiauCodigo}"/>
+                        <h:outputText value="#{aulaController.selected.tiauCodigo.tiauNombre}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{propiedades.Close}" onclick="PF('AulaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="DocenteListForm">
+
+        <h2 align="center">Lista de Docentes</h2>
+        <hr/>
+
+        <p:panel>
+            <p:contextMenu id="DocenteDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{propiedades.Create}" onclick="document.getElementById('DocenteListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{propiedades.View}" onclick="document.getElementById('DocenteListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{propiedades.Edit}" onclick="document.getElementById('DocenteListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{propiedades.Delete}" onclick="document.getElementById('DocenteListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{propiedades.DocenteMenuItem_dediCodigo}" icon="ui-icon-search"  actionListener="#{docenteController.prepareDediCodigo}" update=":DedicacionViewForm" oncomplete="PF('DedicacionViewDialog').show()" disabled="#{empty docenteController.selected.dediCodigo}"/>  
+                <p:menuitem value="#{propiedades.DocenteMenuItem_titrCodigo}" icon="ui-icon-search"  actionListener="#{docenteController.prepareTitrCodigo}" update=":TipoTrabajoViewForm" oncomplete="PF('TipoTrabajoViewDialog').show()" disabled="#{empty docenteController.selected.titrCodigo}"/>  
+            </p:contextMenu>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{propiedades.Create}" actionListener="#{docenteController.prepareCreate}" update=":DocenteCreateForm" oncomplete="PF('DocenteCreateDialog').show()"/>
+            <br/>
+            <br/>
+
+            <p:dataTable id="datalist"
+                         value="#{docenteController.items}"
+                         lazy="false"
+                         rowKey="#{item.doceCodigo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{docenteController.selected}">
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:DocenteDataTableContextMenu" listener="#{docenteController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:DocenteDataTableContextMenu" listener="#{docenteController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{docenteController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('DocenteListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.doceCodigo}" filterBy="#{item.doceCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListDocenteTitle_doceCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.doceCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.doceNombres}" filterBy="#{item.doceNombres}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListDocenteTitle_doceNombres}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.doceNombres}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.doceApellidos}" filterBy="#{item.doceApellidos}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListDocenteTitle_doceApellidos}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.doceApellidos}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.doceCedula}" filterBy="#{item.doceCedula}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListDocenteTitle_doceCedula}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.doceCedula}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.doceEmailUce}" filterBy="#{item.doceEmailUce}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListDocenteTitle_doceEmailUce}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.doceEmailUce}"/>
+                </p:column>
+
+
+                <!--
+                <p:column sortBy="#{item.doceEmailPersonal}" filterBy="#{item.doceEmailPersonal}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListDocenteTitle_doceEmailPersonal}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.doceEmailPersonal}"/>
+                </p:column>
+                -->
+
+                <!--
+                                    <p:column sortBy="#{item.doceFechaNacimiento}" filterBy="#{item.doceFechaNacimiento}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{propiedades.ListDocenteTitle_doceFechaNacimiento}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.doceFechaNacimiento}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.doceGenero}" filterBy="#{item.doceGenero}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{propiedades.ListDocenteTitle_doceGenero}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.doceGenero}"/>
+                                    </p:column>
+                -->
+
+                <p:column sortBy="#{item.doceTelefono}" filterBy="#{item.doceTelefono}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListDocenteTitle_doceTelefono}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.doceTelefono}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.doceCelular}" filterBy="#{item.doceCelular}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{propiedades.ListDocenteTitle_doceCelular}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.doceCelular}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.doceDireccion}" filterBy="#{item.doceDireccion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{propiedades.ListDocenteTitle_doceDireccion}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.doceDireccion}"/>
+                                    </p:column>
+                -->
+
+                <p:column sortBy="#{item.dediCodigo.dediNombre}" filterBy="#{item.dediCodigo.dediNombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListDocenteTitle_dediCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dediCodigo.dediNombre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.titrCodigo.titrNombre}" filterBy="#{item.titrCodigo.titrNombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListDocenteTitle_titrCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.titrCodigo.titrNombre}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{propiedades.View}" update=":DocenteViewForm" oncomplete="PF('DocenteViewDialog').show()" disabled="#{empty docenteController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{propiedades.Edit}" update=":DocenteEditForm" oncomplete="PF('DocenteEditDialog').show()" disabled="#{empty docenteController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{propiedades.Delete}" actionListener="#{docenteController.delete}" update=":growl,datalist" disabled="#{empty docenteController.selected}">
+                <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

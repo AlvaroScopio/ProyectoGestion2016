@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="MateriaSemestreCarreraListForm">
+
+        <p:panel header="#{propiedades.ListMateriaSemestreCarreraTitle}">
+            <p:contextMenu id="MateriaSemestreCarreraDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{propiedades.Create}" onclick="document.getElementById('MateriaSemestreCarreraListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{propiedades.View}" onclick="document.getElementById('MateriaSemestreCarreraListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{propiedades.Edit}" onclick="document.getElementById('MateriaSemestreCarreraListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{propiedades.Delete}" onclick="document.getElementById('MateriaSemestreCarreraListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{propiedades.MateriaSemestreCarreraMenuItem_carrCodigo}" icon="ui-icon-search"  actionListener="#{materiaSemestreCarreraController.prepareCarrCodigo}" update=":CarreraViewForm" oncomplete="PF('CarreraViewDialog').show()" disabled="#{empty materiaSemestreCarreraController.selected.carrCodigo}"/>  
+                <p:menuitem value="#{propiedades.MateriaSemestreCarreraMenuItem_mateCodigo}" icon="ui-icon-search"  actionListener="#{materiaSemestreCarreraController.prepareMateCodigo}" update=":MateriaViewForm" oncomplete="PF('MateriaViewDialog').show()" disabled="#{empty materiaSemestreCarreraController.selected.mateCodigo}"/>  
+                <p:menuitem value="#{propiedades.MateriaSemestreCarreraMenuItem_semeCodigo}" icon="ui-icon-search"  actionListener="#{materiaSemestreCarreraController.prepareSemeCodigo}" update=":SemestreViewForm" oncomplete="PF('SemestreViewDialog').show()" disabled="#{empty materiaSemestreCarreraController.selected.semeCodigo}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{materiaSemestreCarreraController.items}"
+                         lazy="false"
+                         rowKey="#{item.mascCodigo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{materiaSemestreCarreraController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{materiaSemestreCarreraController.items}"
+                         lazy="false"
+                         rowKey="HASH{item.mascCodigo}"  <-- Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MateriaSemestreCarreraDataTableContextMenu" listener="#{materiaSemestreCarreraController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MateriaSemestreCarreraDataTableContextMenu" listener="#{materiaSemestreCarreraController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{materiaSemestreCarreraController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('MateriaSemestreCarreraListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.mascCodigo}" filterBy="#{item.mascCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListMateriaSemestreCarreraTitle_mascCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.mascCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.mascDescripcion}" filterBy="#{item.mascDescripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListMateriaSemestreCarreraTitle_mascDescripcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.mascDescripcion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.carrCodigo.carrDescripcion}" filterBy="#{item.carrCodigo.carrDescripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListMateriaSemestreCarreraTitle_carrCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.carrCodigo.carrDescripcion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.mateCodigo.mateDescripcion}" filterBy="#{item.mateCodigo.mateDescripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListMateriaSemestreCarreraTitle_mateCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.mateCodigo.mateDescripcion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.semeCodigo.semeDescripcion}" filterBy="#{item.semeCodigo.semeDescripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListMateriaSemestreCarreraTitle_semeCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.semeCodigo.semeDescripcion}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{propiedades.Create}" actionListener="#{materiaSemestreCarreraController.prepareCreate}" update=":MateriaSemestreCarreraCreateForm" oncomplete="PF('MateriaSemestreCarreraCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{propiedades.View}" update=":MateriaSemestreCarreraViewForm" oncomplete="PF('MateriaSemestreCarreraViewDialog').show()" disabled="#{empty materiaSemestreCarreraController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{propiedades.Edit}" update=":MateriaSemestreCarreraEditForm" oncomplete="PF('MateriaSemestreCarreraEditDialog').show()" disabled="#{empty materiaSemestreCarreraController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{propiedades.Delete}" actionListener="#{materiaSemestreCarreraController.delete}" update=":growl,datalist" disabled="#{empty materiaSemestreCarreraController.selected}">
+                <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

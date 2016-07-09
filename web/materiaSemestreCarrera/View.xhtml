@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MateriaSemestreCarreraViewDlg" widgetVar="MateriaSemestreCarreraViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.ViewMateriaSemestreCarreraTitle}" closeOnEscape="true">
+
+            <h:form id="MateriaSemestreCarreraViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{materiaSemestreCarreraController.selected != null}">
+
+                        <h:outputText value="#{propiedades.ViewMateriaSemestreCarreraLabel_mascCodigo}"/>
+                        <h:outputText value="#{materiaSemestreCarreraController.selected.mascCodigo}" title="#{propiedades.ViewMateriaSemestreCarreraTitle_mascCodigo}"/>
+
+                        <h:outputText value="#{propiedades.ViewMateriaSemestreCarreraLabel_mascDescripcion}"/>
+                        <h:outputText value="#{materiaSemestreCarreraController.selected.mascDescripcion}" title="#{propiedades.ViewMateriaSemestreCarreraTitle_mascDescripcion}"/>
+
+                        <h:outputText value="#{propiedades.ViewMateriaSemestreCarreraLabel_carrCodigo}"/>
+                        <h:outputText value="#{materiaSemestreCarreraController.selected.carrCodigo.carrDescripcion}"/>
+
+                        <h:outputText value="#{propiedades.ViewMateriaSemestreCarreraLabel_mateCodigo}"/>
+                        <h:outputText value="#{materiaSemestreCarreraController.selected.mateCodigo.mateDescripcion}"/>
+
+                        <h:outputText value="#{propiedades.ViewMateriaSemestreCarreraLabel_semeCodigo}"/>
+                        <h:outputText value="#{materiaSemestreCarreraController.selected.semeCodigo.semeDescripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{propiedades.Close}" onclick="PF('MateriaSemestreCarreraViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

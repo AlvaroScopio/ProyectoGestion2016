@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <h:form id="menuForm">
+            <p:menubar>
+                <p:menuitem value="#{propiedades.Home}" outcome="/index" icon="ui-icon-home"/>
+                <p:submenu label="#{propiedades.Maintenance}">
+                    <p:menuitem value="#{propiedades.AulaHeading}..." outcome="/aula/index" />
+                    <p:menuitem value="#{propiedades.CarreraHeading}..." outcome="/carrera/index" />
+                    <p:menuitem value="#{propiedades.CursoHeading}..." outcome="/curso/index" />
+                    <p:menuitem value="#{propiedades.DedicacionHeading}..." outcome="/dedicacion/index" />
+                    <p:menuitem value="#{propiedades.DisponibilidadHorasHeading}..." outcome="/disponibilidadHoras/index" />
+                    <p:menuitem value="#{propiedades.DisponibilidadMateriaHeading}..." outcome="/disponibilidadMateria/index" />
+                    <p:menuitem value="#{propiedades.DocenteHeading}..." outcome="/docente/index" />
+                    <p:menuitem value="#{propiedades.DocenteMateriaCursoHeading}..." outcome="/docenteMateriaCurso/index" />
+                    <p:menuitem value="#{propiedades.EdificioHeading}..." outcome="/edificio/index" />
+                    <p:menuitem value="#{propiedades.EncuestaHeading}..." outcome="/encuesta/index" />
+                    <p:menuitem value="#{propiedades.EstudianteHeading}..." outcome="/estudiante/index" />
+                    <p:menuitem value="#{propiedades.HorarioHeading}..." outcome="/horario/index" />
+                    <p:menuitem value="#{propiedades.MateriaHeading}..." outcome="/materia/index" />
+                    <p:menuitem value="#{propiedades.MateriaEstadisticoHeading}..." outcome="/materiaEstadistico/index" />
+                    <p:menuitem value="#{propiedades.MateriaSemestreCarreraHeading}..." outcome="/materiaSemestreCarrera/index" />
+                    <p:menuitem value="#{propiedades.MenuHeading}..." outcome="/menu/index" />
+                    <p:menuitem value="#{propiedades.ParaleloHeading}..." outcome="/paralelo/index" />
+                    <p:menuitem value="#{propiedades.PeriodoHeading}..." outcome="/periodo/index" />
+                    <p:menuitem value="#{propiedades.PreinscripcionHeading}..." outcome="/preinscripcion/index" />
+                    <p:menuitem value="#{propiedades.RolHeading}..." outcome="/rol/index" />
+                    <p:menuitem value="#{propiedades.RolMenuHeading}..." outcome="/rolMenu/index" />
+                    <p:menuitem value="#{propiedades.SemestreHeading}..." outcome="/semestre/index" />
+                    <p:menuitem value="#{propiedades.TipoAulaHeading}..." outcome="/tipoAula/index" />
+                    <p:menuitem value="#{propiedades.TipoTrabajoHeading}..." outcome="/tipoTrabajo/index" />
+                    <p:menuitem value="#{propiedades.UsuarioHeading}..." outcome="/usuario/index" />
+                </p:submenu>
+                <p:menuitem value="#{propiedades.Mobile}" outcome="/mobile/index" icon="ui-icon-signal"/>
+            </p:menubar>
+        </h:form>
+    </ui:composition>
+
+</html>

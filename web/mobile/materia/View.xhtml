@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MateriaViewPage" lazy="true">
+        <pm:header title="#{propiedades.ViewMateriaTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:MateriaListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MateriaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{materiaController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewMateriaLabel_mateCodigo}"/>
+                            <h:outputText value="#{materiaController.selected.mateCodigo}" title="#{propiedades.ViewMateriaTitle_mateCodigo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewMateriaLabel_mateNombre}"/>
+                            <h:outputText value="#{materiaController.selected.mateNombre}" title="#{propiedades.ViewMateriaTitle_mateNombre}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewMateriaLabel_mateCreditos}"/>
+                            <h:outputText value="#{materiaController.selected.mateCreditos}" title="#{propiedades.ViewMateriaTitle_mateCreditos}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewMateriaLabel_mateDescripcion}"/>
+                            <h:outputText value="#{materiaController.selected.mateDescripcion}" title="#{propiedades.ViewMateriaTitle_mateDescripcion}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

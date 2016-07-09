@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="EstudianteListForm">
+
+        <h2 align="center">Lista de Estudiantes</h2>
+        <hr/>
+
+        <p:panel>
+            <p:contextMenu id="EstudianteDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{propiedades.Create}" onclick="document.getElementById('EstudianteListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{propiedades.View}" onclick="document.getElementById('EstudianteListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{propiedades.Edit}" onclick="document.getElementById('EstudianteListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{propiedades.Delete}" onclick="document.getElementById('EstudianteListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{propiedades.EstudianteMenuItem_carrCodigo}" icon="ui-icon-search"  actionListener="#{estudianteController.prepareCarrCodigo}" update=":CarreraViewForm" oncomplete="PF('CarreraViewDialog').show()" disabled="#{empty estudianteController.selected.carrCodigo}"/>  
+            </p:contextMenu>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{propiedades.Create}" actionListener="#{estudianteController.prepareCreate}" update=":EstudianteCreateForm" oncomplete="PF('EstudianteCreateDialog').show()"/>
+            <br/>
+            <br/>
+
+            <p:dataTable id="datalist"
+                         value="#{estudianteController.items}"
+                         lazy="false"
+                         rowKey="#{item.estuCodigo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{estudianteController.selected}">
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:EstudianteDataTableContextMenu" listener="#{estudianteController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:EstudianteDataTableContextMenu" listener="#{estudianteController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{estudianteController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('EstudianteListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.estuCodigo}" filterBy="#{item.estuCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListEstudianteTitle_estuCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.estuCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.estuNombres}" filterBy="#{item.estuNombres}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListEstudianteTitle_estuNombres}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.estuNombres}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.estuApellidos}" filterBy="#{item.estuApellidos}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListEstudianteTitle_estuApellidos}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.estuApellidos}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.estuCedula}" filterBy="#{item.estuCedula}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListEstudianteTitle_estuCedula}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.estuCedula}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.estuEmailUce}" filterBy="#{item.estuEmailUce}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListEstudianteTitle_estuEmailUce}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.estuEmailUce}"/>
+                </p:column>
+
+
+                <!--
+                <p:column sortBy="#{item.estuEmailPersonal}" filterBy="#{item.estuEmailPersonal}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListEstudianteTitle_estuEmailPersonal}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.estuEmailPersonal}"/>
+                </p:column>
+                -->
+
+                <!--
+                                    <p:column sortBy="#{item.estuFechaNacimiento}" filterBy="#{item.estuFechaNacimiento}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{propiedades.ListEstudianteTitle_estuFechaNacimiento}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.estuFechaNacimiento}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.estuGenereo}" filterBy="#{item.estuGenereo}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{propiedades.ListEstudianteTitle_estuGenereo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.estuGenereo}"/>
+                                    </p:column>
+                -->
+
+                <p:column sortBy="#{item.estuTelefono}" filterBy="#{item.estuTelefono}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListEstudianteTitle_estuTelefono}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.estuTelefono}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.estuCelular}" filterBy="#{item.estuCelular}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{propiedades.ListEstudianteTitle_estuCelular}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.estuCelular}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.estuDireccion}" filterBy="#{item.estuDireccion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{propiedades.ListEstudianteTitle_estuDireccion}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.estuDireccion}"/>
+                                    </p:column>
+                -->
+
+                <p:column sortBy="#{item.carrCodigo.carrNombre}" filterBy="#{item.carrCodigo.carrNombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListEstudianteTitle_carrCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.carrCodigo.carrNombre}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{propiedades.View}" update=":EstudianteViewForm" oncomplete="PF('EstudianteViewDialog').show()" disabled="#{empty estudianteController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{propiedades.Edit}" update=":EstudianteEditForm" oncomplete="PF('EstudianteEditDialog').show()" disabled="#{empty estudianteController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{propiedades.Delete}" actionListener="#{estudianteController.delete}" update=":growl,datalist" disabled="#{empty estudianteController.selected}">
+                <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

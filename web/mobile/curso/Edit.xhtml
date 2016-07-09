@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="CursoEditPage" lazy="true">
+        <pm:header title="#{propiedades.EditCursoTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:CursoListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="CursoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{cursoController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{propiedades.EditCursoLabel_cursCodigo}" for="cursCodigo" />
+                            <h:outputText id="cursCodigo" value="#{cursoController.selected.cursCodigo}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditCursoLabel_cursComentario}" for="cursComentario" />
+                            <p:inputText id="cursComentario" value="#{cursoController.selected.cursComentario}" title="#{propiedades.EditCursoTitle_cursComentario}" size="100" maxlength="100"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditCursoLabel_carrCodigo}" for="carrCodigo" />
+                            <p:selectOneMenu id="carrCodigo" value="#{cursoController.selected.carrCodigo}"  converter="carreraConverter">
+                                <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                                <f:selectItems value="#{carreraController.items}"
+                                               var="carrCodigoItem"
+                                               itemValue="#{carrCodigoItem}"
+                                               itemLabel="#{carrCodigoItem.carrDescripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditCursoLabel_paraCodigo}" for="paraCodigo" />
+                            <p:selectOneMenu id="paraCodigo" value="#{cursoController.selected.paraCodigo}"  converter="paraleloConverter">
+                                <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                                <f:selectItems value="#{paraleloController.items}"
+                                               var="paraCodigoItem"
+                                               itemValue="#{paraCodigoItem}"
+                                               itemLabel="#{paraCodigoItem.paraDescripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditCursoLabel_periCodigo}" for="periCodigo" />
+                            <p:selectOneMenu id="periCodigo" value="#{cursoController.selected.periCodigo}"  converter="periodoConverter">
+                                <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                                <f:selectItems value="#{periodoController.items}"
+                                               var="periCodigoItem"
+                                               itemValue="#{periCodigoItem}"
+                                               itemLabel="#{periCodigoItem.periDescripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditCursoLabel_semeCodigo}" for="semeCodigo" />
+                            <p:selectOneMenu id="semeCodigo" value="#{cursoController.selected.semeCodigo}"  converter="semestreConverter">
+                                <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                                <f:selectItems value="#{semestreController.items}"
+                                               var="semeCodigoItem"
+                                               itemValue="#{semeCodigoItem}"
+                                               itemLabel="#{semeCodigoItem.semeDescripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{cursoController.save}" value="#{propiedades.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:CursoListPage:CursoListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:CursoListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

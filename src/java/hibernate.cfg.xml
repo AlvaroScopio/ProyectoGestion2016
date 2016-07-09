@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/horarios</property>
+    <property name="hibernate.connection.username">postgres</property>
+    <property name="hibernate.connection.password">12345</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.format_sql">true</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <mapping resource="model/Docente.hbm.xml"/>
+    <mapping resource="model/Edificio.hbm.xml"/>
+    <mapping resource="model/Usuario.hbm.xml"/>
+    <mapping resource="model/Estudiante.hbm.xml"/>
+    <mapping resource="model/Aula.hbm.xml"/>
+    <mapping resource="model/DisponibilidadHoras.hbm.xml"/>
+    <mapping resource="model/TipoAula.hbm.xml"/>
+    <mapping resource="model/Preinscripcion.hbm.xml"/>
+    <mapping resource="model/Dedicacion.hbm.xml"/>
+    <mapping resource="model/Semestre.hbm.xml"/>
+    <mapping resource="model/Periodo.hbm.xml"/>
+    <mapping resource="model/RolMenu.hbm.xml"/>
+    <mapping resource="model/Menu.hbm.xml"/>
+    <mapping resource="model/Curso.hbm.xml"/>
+    <mapping resource="model/Horario.hbm.xml"/>
+    <mapping resource="model/Rol.hbm.xml"/>
+    <mapping resource="model/MateriaSemestreCarrera.hbm.xml"/>
+    <mapping resource="model/Encuesta.hbm.xml"/>
+    <mapping resource="model/DocenteMateriaCurso.hbm.xml"/>
+    <mapping resource="model/Paralelo.hbm.xml"/>
+    <mapping resource="model/Carrera.hbm.xml"/>
+    <mapping resource="model/DisponibilidadMateria.hbm.xml"/>
+    <mapping resource="model/MateriaEstadistico.hbm.xml"/>
+    <mapping resource="model/Materia.hbm.xml"/>
+    <mapping resource="model/TipoTrabajo.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

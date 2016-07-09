@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="PeriodoListForm">
+        
+        <h2 align="center">Lista de Periodos</h2>
+        <hr/>
+
+        <p:panel>
+            <p:contextMenu id="PeriodoDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{propiedades.Create}" onclick="document.getElementById('PeriodoListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{propiedades.View}" onclick="document.getElementById('PeriodoListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{propiedades.Edit}" onclick="document.getElementById('PeriodoListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{propiedades.Delete}" onclick="document.getElementById('PeriodoListForm:deleteButton').click();" icon="ui-icon-trash"/>
+            </p:contextMenu>
+            
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{propiedades.Create}" actionListener="#{periodoController.prepareCreate}" update=":PeriodoCreateForm" oncomplete="PF('PeriodoCreateDialog').show()"/>
+            <br/>
+            <br/>
+            
+            <p:dataTable id="datalist"
+                         value="#{periodoController.items}"
+                         lazy="false"
+                         rowKey="#{item.periCodigo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{periodoController.selected}">
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:PeriodoDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:PeriodoDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('PeriodoListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.periCodigo}" filterBy="#{item.periCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListPeriodoTitle_periCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.periCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.periNombre}" filterBy="#{item.periNombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListPeriodoTitle_periNombre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.periNombre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.periVigencia}" filterBy="#{item.periVigencia}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListPeriodoTitle_periVigencia}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.periVigencia}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.periDescripcion}" filterBy="#{item.periDescripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListPeriodoTitle_periDescripcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.periDescripcion}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{propiedades.View}" update=":PeriodoViewForm" oncomplete="PF('PeriodoViewDialog').show()" disabled="#{empty periodoController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{propiedades.Edit}" update=":PeriodoEditForm" oncomplete="PF('PeriodoEditDialog').show()" disabled="#{empty periodoController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{propiedades.Delete}" actionListener="#{periodoController.delete}" update=":growl,datalist" disabled="#{empty periodoController.selected}">
+                <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

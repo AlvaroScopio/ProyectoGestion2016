@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-feb-2016 18:02:33 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.TipoAula" table="tipo_aula" schema="public">
+        <id name="tiauCodigo" type="int">
+            <column name="tiau_codigo" />
+            <generator class="assigned" />
+        </id>
+        <property name="tiauNombre" type="string">
+            <column name="tiau_nombre" length="20" />
+        </property>
+        <property name="tiauDescripcion" type="string">
+            <column name="tiau_descripcion" length="50" />
+        </property>
+        <set name="aulas" table="aula" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="tiau_codigo" />
+            </key>
+            <one-to-many class="model.Aula" />
+        </set>
+    </class>
+</hibernate-mapping>

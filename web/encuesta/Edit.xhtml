@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="EncuestaEditDlg" widgetVar="EncuestaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.EditEncuestaTitle}" closeOnEscape="true">
+
+            <h:form id="EncuestaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{encuestaController.selected != null}">
+
+
+                        <h:outputLabel value="#{propiedades.EditEncuestaLabel_encuCodigo}" for="encuCodigo" />
+                        <h:outputText id="encuCodigo" value="#{encuestaController.selected.encuCodigo}" />
+
+                        <p:outputLabel value="#{propiedades.EditEncuestaLabel_encuComentario}" for="encuComentario" />
+                        <p:inputText id="encuComentario" value="#{encuestaController.selected.encuComentario}" title="#{propiedades.EditEncuestaTitle_encuComentario}" size="200" maxlength="200"/>
+
+                        <p:outputLabel value="#{propiedades.EditEncuestaLabel_doceCodigo}" for="doceCodigo" />
+                        <p:selectOneMenu id="doceCodigo" value="#{encuestaController.selected.doceCodigo}"  converter="docenteConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{docenteController.items}"
+                                           var="doceCodigoItem"
+                                           itemValue="#{doceCodigoItem}"
+                                           itemLabel="#{doceCodigoItem.doceCodigo.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{propiedades.EditEncuestaLabel_periCodigo}" for="periCodigo" />
+                        <p:selectOneMenu id="periCodigo" value="#{encuestaController.selected.periCodigo}"  converter="periodoConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{periodoController.items}"
+                                           var="periCodigoItem"
+                                           itemValue="#{periCodigoItem}"
+                                           itemLabel="#{periCodigoItem.periDescripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{encuestaController.save}" value="#{propiedades.Save}" update="display,:EncuestaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('EncuestaEditDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('EncuestaEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

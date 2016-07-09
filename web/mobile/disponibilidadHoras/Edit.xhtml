@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="DisponibilidadHorasEditPage" lazy="true">
+        <pm:header title="#{propiedades.EditDisponibilidadHorasTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:DisponibilidadHorasListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="DisponibilidadHorasEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{disponibilidadHorasController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{propiedades.EditDisponibilidadHorasLabel_dihoCodigo}" for="dihoCodigo" />
+                            <h:outputText id="dihoCodigo" value="#{disponibilidadHorasController.selected.dihoCodigo}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditDisponibilidadHorasLabel_dihoDia}" for="dihoDia" />
+                            <p:inputText id="dihoDia" value="#{disponibilidadHorasController.selected.dihoDia}" title="#{propiedades.EditDisponibilidadHorasTitle_dihoDia}" size="10" maxlength="10"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditDisponibilidadHorasLabel_dihoHoraInicio}" for="dihoHoraInicio" />
+                            <p:calendar id="dihoHoraInicio" pattern="HH:mm:ss" value="#{disponibilidadHorasController.selected.dihoHoraInicio}" title="#{propiedades.EditDisponibilidadHorasTitle_dihoHoraInicio}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditDisponibilidadHorasLabel_dihoHoraFin}" for="dihoHoraFin" />
+                            <p:calendar id="dihoHoraFin" pattern="HH:mm:ss" value="#{disponibilidadHorasController.selected.dihoHoraFin}" title="#{propiedades.EditDisponibilidadHorasTitle_dihoHoraFin}"  showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditDisponibilidadHorasLabel_encuCodigo}" for="encuCodigo" />
+                            <p:selectOneMenu id="encuCodigo" value="#{disponibilidadHorasController.selected.encuCodigo}"  converter="encuestaConverter">
+                                <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                                <f:selectItems value="#{encuestaController.items}"
+                                               var="encuCodigoItem"
+                                               itemValue="#{encuCodigoItem}"
+                                               itemLabel="#{encuCodigoItem.encuCodigo.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{disponibilidadHorasController.save}" value="#{propiedades.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:DisponibilidadHorasListPage:DisponibilidadHorasListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:DisponibilidadHorasListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

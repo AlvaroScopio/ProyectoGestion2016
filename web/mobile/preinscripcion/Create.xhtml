@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="PreinscripcionCreatePage" lazy="true">
+        <pm:header title="#{propiedades.CreatePreinscripcionTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:PreinscripcionListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="PreinscripcionCreateForm">
+
+                <h:panelGroup id="display" rendered="#{preinscripcionController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.CreatePreinscripcionLabel_estuCodigo}" for="estuCodigo" />
+                            <p:selectOneMenu id="estuCodigo" value="#{preinscripcionController.selected.estuCodigo}"  converter="estudianteConverter">
+                                <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                                <f:selectItems value="#{estudianteController.items}"
+                                               var="estuCodigoItem"
+                                               itemValue="#{estuCodigoItem}"
+                                               itemLabel="#{estuCodigoItem.estuCodigo.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.CreatePreinscripcionLabel_mateCodigo}" for="mateCodigo" />
+                            <p:selectOneMenu id="mateCodigo" value="#{preinscripcionController.selected.mateCodigo}"  converter="materiaConverter">
+                                <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                                <f:selectItems value="#{materiaController.items}"
+                                               var="mateCodigoItem"
+                                               itemValue="#{mateCodigoItem}"
+                                               itemLabel="#{mateCodigoItem.mateDescripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.CreatePreinscripcionLabel_periCodigo}" for="periCodigo" />
+                            <p:selectOneMenu id="periCodigo" value="#{preinscripcionController.selected.periCodigo}"  converter="periodoConverter">
+                                <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                                <f:selectItems value="#{periodoController.items}"
+                                               var="periCodigoItem"
+                                               itemValue="#{periCodigoItem}"
+                                               itemLabel="#{periCodigoItem.periDescripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{preinscripcionController.saveNew}" value="#{propiedades.Save}" update="display,:PreinscripcionListPage:PreinscripcionListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:PreinscripcionListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

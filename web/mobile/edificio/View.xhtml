@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="EdificioViewPage" lazy="true">
+        <pm:header title="#{propiedades.ViewEdificioTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:EdificioListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="EdificioViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{edificioController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewEdificioLabel_edifCodigo}"/>
+                            <h:outputText value="#{edificioController.selected.edifCodigo}" title="#{propiedades.ViewEdificioTitle_edifCodigo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewEdificioLabel_edifNombre}"/>
+                            <h:outputText value="#{edificioController.selected.edifNombre}" title="#{propiedades.ViewEdificioTitle_edifNombre}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewEdificioLabel_edifDescripcion}"/>
+                            <h:outputText value="#{edificioController.selected.edifDescripcion}" title="#{propiedades.ViewEdificioTitle_edifDescripcion}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

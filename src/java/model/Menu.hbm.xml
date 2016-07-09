@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-feb-2016 18:02:33 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.Menu" table="menu" schema="public">
+        <id name="menuCodigo" type="int">
+            <column name="menu_codigo" />
+            <generator class="assigned" />
+        </id>
+        <property name="menuPadre" type="java.lang.Integer">
+            <column name="menu_padre" />
+        </property>
+        <property name="menuNivel" type="java.lang.Integer">
+            <column name="menu_nivel" />
+        </property>
+        <property name="menuOrden" type="java.lang.Integer">
+            <column name="menu_orden" />
+        </property>
+        <property name="menuNombre" type="string">
+            <column name="menu_nombre" length="50" />
+        </property>
+        <property name="menuUrl" type="string">
+            <column name="menu_url" length="200" />
+        </property>
+        <property name="menuIcono" type="string">
+            <column name="menu_icono" length="50" />
+        </property>
+        <property name="menuEstado" type="java.lang.Integer">
+            <column name="menu_estado" />
+        </property>
+        <set name="rolMenus" table="rol_menu" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="menu_codigo" />
+            </key>
+            <one-to-many class="model.RolMenu" />
+        </set>
+    </class>
+</hibernate-mapping>

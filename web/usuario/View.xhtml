@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioViewDlg" widgetVar="UsuarioViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.ViewUsuarioTitle}" closeOnEscape="true">
+
+            <h:form id="UsuarioViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{usuarioController.selected != null}">
+
+                        <h:outputText value="#{propiedades.ViewUsuarioLabel_userCodigo}"/>
+                        <h:outputText value="#{usuarioController.selected.userCodigo}" title="#{propiedades.ViewUsuarioTitle_userCodigo}"/>
+
+                        <h:outputText value="#{propiedades.ViewUsuarioLabel_userNombre}"/>
+                        <h:outputText value="#{usuarioController.selected.userNombre}" title="#{propiedades.ViewUsuarioTitle_userNombre}"/>
+
+                        <h:outputText value="#{propiedades.ViewUsuarioLabel_userNombreCompleto}"/>
+                        <h:outputText value="#{usuarioController.selected.userNombreCompleto}" title="#{propiedades.ViewUsuarioTitle_userNombreCompleto}"/>
+
+                        <h:outputText value="#{propiedades.ViewUsuarioLabel_userPassword}"/>
+                        <h:outputText value="#{usuarioController.selected.userPassword}" title="#{propiedades.ViewUsuarioTitle_userPassword}"/>
+
+                        <h:outputText value="#{propiedades.ViewUsuarioLabel_userEstado}"/>
+                        <h:outputText value="#{usuarioController.selected.userEstado}" title="#{propiedades.ViewUsuarioTitle_userEstado}"/>
+
+                        <h:outputText value="#{propiedades.ViewUsuarioLabel_rolCodigo}"/>
+                        <h:outputText value="#{usuarioController.selected.rolCodigo.rolNombre}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{propiedades.Close}" onclick="PF('UsuarioViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

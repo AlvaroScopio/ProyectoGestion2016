@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="DocenteMateriaCursoEditPage" lazy="true">
+        <pm:header title="#{propiedades.EditDocenteMateriaCursoTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:DocenteMateriaCursoListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="DocenteMateriaCursoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{docenteMateriaCursoController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{propiedades.EditDocenteMateriaCursoLabel_domcCodigo}" for="domcCodigo" />
+                            <h:outputText id="domcCodigo" value="#{docenteMateriaCursoController.selected.domcCodigo}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditDocenteMateriaCursoLabel_domcComentario}" for="domcComentario" />
+                            <p:inputText id="domcComentario" value="#{docenteMateriaCursoController.selected.domcComentario}" title="#{propiedades.EditDocenteMateriaCursoTitle_domcComentario}" size="100" maxlength="100"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditDocenteMateriaCursoLabel_cursCodigo}" for="cursCodigo" />
+                            <p:selectOneMenu id="cursCodigo" value="#{docenteMateriaCursoController.selected.cursCodigo}"  converter="cursoConverter">
+                                <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                                <f:selectItems value="#{cursoController.items}"
+                                               var="cursCodigoItem"
+                                               itemValue="#{cursCodigoItem}"
+                                               itemLabel="#{cursCodigoItem.cursCodigo.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditDocenteMateriaCursoLabel_doceCodigo}" for="doceCodigo" />
+                            <p:selectOneMenu id="doceCodigo" value="#{docenteMateriaCursoController.selected.doceCodigo}"  converter="docenteConverter">
+                                <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                                <f:selectItems value="#{docenteController.items}"
+                                               var="doceCodigoItem"
+                                               itemValue="#{doceCodigoItem}"
+                                               itemLabel="#{doceCodigoItem.doceCodigo.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditDocenteMateriaCursoLabel_mateCodigo}" for="mateCodigo" />
+                            <p:selectOneMenu id="mateCodigo" value="#{docenteMateriaCursoController.selected.mateCodigo}"  converter="materiaConverter">
+                                <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                                <f:selectItems value="#{materiaController.items}"
+                                               var="mateCodigoItem"
+                                               itemValue="#{mateCodigoItem}"
+                                               itemLabel="#{mateCodigoItem.mateDescripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{docenteMateriaCursoController.save}" value="#{propiedades.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:DocenteMateriaCursoListPage:DocenteMateriaCursoListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:DocenteMateriaCursoListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

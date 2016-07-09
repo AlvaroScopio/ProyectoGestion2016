@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DisponibilidadMateriaViewDlg" widgetVar="DisponibilidadMateriaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.ViewDisponibilidadMateriaTitle}" closeOnEscape="true">
+
+            <h:form id="DisponibilidadMateriaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{disponibilidadMateriaController.selected != null}">
+
+                        <h:outputText value="#{propiedades.ViewDisponibilidadMateriaLabel_dimaCodigo}"/>
+                        <h:outputText value="#{disponibilidadMateriaController.selected.dimaCodigo}" title="#{propiedades.ViewDisponibilidadMateriaTitle_dimaCodigo}"/>
+
+                        <h:outputText value="#{propiedades.ViewDisponibilidadMateriaLabel_encuCodigo}"/>
+                        <h:outputText value="#{disponibilidadMateriaController.selected.encuCodigo.encuCodigo}"/>
+
+                        <h:outputText value="#{propiedades.ViewDisponibilidadMateriaLabel_mateCodigo}"/>
+                        <h:outputText value="#{disponibilidadMateriaController.selected.mateCodigo.mateDescripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{propiedades.Close}" onclick="PF('DisponibilidadMateriaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

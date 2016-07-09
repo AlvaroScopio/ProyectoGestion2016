@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-feb-2016 18:02:33 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.MateriaSemestreCarrera" table="materia_semestre_carrera" schema="public">
+        <id name="mascCodigo" type="int">
+            <column name="masc_codigo" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="materia" class="model.Materia" fetch="select">
+            <column name="mate_codigo" />
+        </many-to-one>
+        <many-to-one name="carrera" class="model.Carrera" fetch="select">
+            <column name="carr_codigo" />
+        </many-to-one>
+        <many-to-one name="semestre" class="model.Semestre" fetch="select">
+            <column name="seme_codigo" />
+        </many-to-one>
+        <property name="mascDescripcion" type="string">
+            <column name="masc_descripcion" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>

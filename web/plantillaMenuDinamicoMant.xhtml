@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <h:outputScript library="scripts" name="pfcrud.js"/>
+        <!--
+        <h:outputStylesheet library="css" name="pfcrud.css"/>
+        -->
+        <title>Sistema Horarios</title>
+    </h:head>
+
+    <h:body>
+
+        <div id="top">
+            <ui:insert name="top"></ui:insert>
+
+            <br/>
+            <h1>Sistema de Horarios</h1>
+            <br/>
+
+            <h:form>
+                <div id="divSesionUsuario">
+                    <span>
+                        <b>Sesión inicia por: </b>
+                        <p:outputLabel value="#{loginBean.usuario.userNombre == null ? 'Anónimo' : loginBean.usuario.userNombre}"/>
+                    </span>
+
+                    <p:commandButton action="#{loginBean.cerrarSession()}" icon="ui-icon-power" title="Cerrar sesión"/>
+                </div>
+
+                <p:menubar model="#{menuBean.model}"/>
+            </h:form>
+
+        </div>
+
+        <div id="content" class="center_content">
+            
+            <p:growl id="growl" life="3000"/>
+            
+            <ui:insert name="content">
+
+            </ui:insert>
+            
+        </div>
+
+        <div id="bottom">
+            <ui:insert name="bottom">&copy; 2016</ui:insert>
+        </div>
+
+    </h:body>
+
+</html>

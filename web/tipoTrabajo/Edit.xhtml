@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TipoTrabajoEditDlg" widgetVar="TipoTrabajoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.EditTipoTrabajoTitle}" closeOnEscape="true">
+
+            <h:form id="TipoTrabajoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tipoTrabajoController.selected != null}">
+
+
+                        <h:outputLabel value="#{propiedades.EditTipoTrabajoLabel_titrCodigo}" for="titrCodigo" />
+                        <h:outputText id="titrCodigo" value="#{tipoTrabajoController.selected.titrCodigo}" />
+
+                        <p:outputLabel value="#{propiedades.EditTipoTrabajoLabel_titrNombre}" for="titrNombre" />
+                        <p:inputText id="titrNombre" value="#{tipoTrabajoController.selected.titrNombre}" title="#{propiedades.EditTipoTrabajoTitle_titrNombre}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{propiedades.EditTipoTrabajoLabel_titrDescripcion}" for="titrDescripcion" />
+                        <p:inputText id="titrDescripcion" value="#{tipoTrabajoController.selected.titrDescripcion}" title="#{propiedades.EditTipoTrabajoTitle_titrDescripcion}" size="100" maxlength="100"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoTrabajoController.save}" value="#{propiedades.Save}" update="display,:TipoTrabajoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TipoTrabajoEditDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('TipoTrabajoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

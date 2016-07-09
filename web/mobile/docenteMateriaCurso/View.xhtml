@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="DocenteMateriaCursoViewPage" lazy="true">
+        <pm:header title="#{propiedades.ViewDocenteMateriaCursoTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:DocenteMateriaCursoListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="DocenteMateriaCursoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{docenteMateriaCursoController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewDocenteMateriaCursoLabel_domcCodigo}"/>
+                            <h:outputText value="#{docenteMateriaCursoController.selected.domcCodigo}" title="#{propiedades.ViewDocenteMateriaCursoTitle_domcCodigo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewDocenteMateriaCursoLabel_domcComentario}"/>
+                            <h:outputText value="#{docenteMateriaCursoController.selected.domcComentario}" title="#{propiedades.ViewDocenteMateriaCursoTitle_domcComentario}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewDocenteMateriaCursoLabel_cursCodigo}"/>
+                            <h:outputText value="#{docenteMateriaCursoController.selected.cursCodigo.cursCodigo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewDocenteMateriaCursoLabel_doceCodigo}"/>
+                            <h:outputText value="#{docenteMateriaCursoController.selected.doceCodigo.doceCodigo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewDocenteMateriaCursoLabel_mateCodigo}"/>
+                            <h:outputText value="#{docenteMateriaCursoController.selected.mateCodigo.mateDescripcion}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

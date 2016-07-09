@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ParaleloCreateDlg" widgetVar="ParaleloCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{propiedades.CreateParaleloTitle}" closeOnEscape="true">
+
+            <h:form id="ParaleloCreateForm">
+
+                <h:panelGroup id="display" rendered="#{paraleloController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{propiedades.CreateParaleloLabel_paraNombre}" for="paraNombre" />
+                        <p:inputText id="paraNombre" value="#{paraleloController.selected.paraNombre}" title="#{propiedades.CreateParaleloTitle_paraNombre}" size="15" maxlength="15"/>
+
+                        <p:outputLabel value="#{propiedades.CreateParaleloLabel_paraDescripcion}" for="paraDescripcion" />
+                        <p:inputText id="paraDescripcion" value="#{paraleloController.selected.paraDescripcion}" title="#{propiedades.CreateParaleloTitle_paraDescripcion}" size="50" maxlength="50"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{paraleloController.saveNew}" value="#{propiedades.Save}" update="display,:ParaleloListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ParaleloCreateDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('ParaleloCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

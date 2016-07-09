@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ParaleloEditDlg" widgetVar="ParaleloEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.EditParaleloTitle}" closeOnEscape="true">
+
+            <h:form id="ParaleloEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{paraleloController.selected != null}">
+
+
+                        <h:outputLabel value="#{propiedades.EditParaleloLabel_paraCodigo}" for="paraCodigo" />
+                        <h:outputText id="paraCodigo" value="#{paraleloController.selected.paraCodigo}" />
+
+                        <p:outputLabel value="#{propiedades.EditParaleloLabel_paraNombre}" for="paraNombre" />
+                        <p:inputText id="paraNombre" value="#{paraleloController.selected.paraNombre}" title="#{propiedades.EditParaleloTitle_paraNombre}" size="15" maxlength="15"/>
+
+                        <p:outputLabel value="#{propiedades.EditParaleloLabel_paraDescripcion}" for="paraDescripcion" />
+                        <p:inputText id="paraDescripcion" value="#{paraleloController.selected.paraDescripcion}" title="#{propiedades.EditParaleloTitle_paraDescripcion}" size="50" maxlength="50"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{paraleloController.save}" value="#{propiedades.Save}" update="display,:ParaleloListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ParaleloEditDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('ParaleloEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

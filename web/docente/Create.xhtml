@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DocenteCreateDlg" widgetVar="DocenteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{propiedades.CreateDocenteTitle}" closeOnEscape="true">
+
+            <h:form id="DocenteCreateForm">
+
+                <h:panelGroup id="display" rendered="#{docenteController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{propiedades.CreateDocenteLabel_doceNombres}" for="doceNombres" />
+                        <p:inputText id="doceNombres" value="#{docenteController.selected.doceNombres}" title="#{propiedades.CreateDocenteTitle_doceNombres}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{propiedades.CreateDocenteLabel_doceApellidos}" for="doceApellidos" />
+                        <p:inputText id="doceApellidos" value="#{docenteController.selected.doceApellidos}" title="#{propiedades.CreateDocenteTitle_doceApellidos}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{propiedades.CreateDocenteLabel_doceCedula}" for="doceCedula" />
+                        <p:inputText id="doceCedula" value="#{docenteController.selected.doceCedula}" title="#{propiedades.CreateDocenteTitle_doceCedula}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{propiedades.CreateDocenteLabel_doceEmailUce}" for="doceEmailUce" />
+                        <p:inputText id="doceEmailUce" value="#{docenteController.selected.doceEmailUce}" title="#{propiedades.CreateDocenteTitle_doceEmailUce}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{propiedades.CreateDocenteLabel_doceEmailPersonal}" for="doceEmailPersonal" />
+                        <p:inputText id="doceEmailPersonal" value="#{docenteController.selected.doceEmailPersonal}" title="#{propiedades.CreateDocenteTitle_doceEmailPersonal}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{propiedades.CreateDocenteLabel_doceFechaNacimiento}" for="doceFechaNacimiento" />
+                        <p:calendar id="doceFechaNacimiento" pattern="MM/dd/yyyy" value="#{docenteController.selected.doceFechaNacimiento}" title="#{propiedades.CreateDocenteTitle_doceFechaNacimiento}"  showOn="button"/>
+
+                        <p:outputLabel value="#{propiedades.CreateDocenteLabel_doceGenero}" for="doceGenero" />
+                        <p:inputText id="doceGenero" value="#{docenteController.selected.doceGenero}" title="#{propiedades.CreateDocenteTitle_doceGenero}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{propiedades.CreateDocenteLabel_doceTelefono}" for="doceTelefono" />
+                        <p:inputText id="doceTelefono" value="#{docenteController.selected.doceTelefono}" title="#{propiedades.CreateDocenteTitle_doceTelefono}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{propiedades.CreateDocenteLabel_doceCelular}" for="doceCelular" />
+                        <p:inputText id="doceCelular" value="#{docenteController.selected.doceCelular}" title="#{propiedades.CreateDocenteTitle_doceCelular}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{propiedades.CreateDocenteLabel_doceDireccion}" for="doceDireccion" />
+                        <p:inputText id="doceDireccion" value="#{docenteController.selected.doceDireccion}" title="#{propiedades.CreateDocenteTitle_doceDireccion}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{propiedades.CreateDocenteLabel_dediCodigo}" for="dediCodigo" />
+                        <p:selectOneMenu id="dediCodigo" value="#{docenteController.selected.dediCodigo}"  converter="dedicacionConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{dedicacionController.items}"
+                                           var="dediCodigoItem"
+                                           itemValue="#{dediCodigoItem}"
+                                           itemLabel="#{dediCodigoItem.dediNombre}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{propiedades.CreateDocenteLabel_titrCodigo}" for="titrCodigo" />
+                        <p:selectOneMenu id="titrCodigo" value="#{docenteController.selected.titrCodigo}"  converter="tipoTrabajoConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoTrabajoController.items}"
+                                           var="titrCodigoItem"
+                                           itemValue="#{titrCodigoItem}"
+                                           itemLabel="#{titrCodigoItem.titrNombre}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{docenteController.saveNew}" value="#{propiedades.Save}" update="display,:DocenteListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DocenteCreateDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('DocenteCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

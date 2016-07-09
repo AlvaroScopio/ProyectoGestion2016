@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-feb-2016 18:02:33 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.Carrera" table="carrera" schema="public">
+        <id name="carrCodigo" type="int">
+            <column name="carr_codigo" />
+            <generator class="identity" />
+        </id>
+        <property name="carrNombre" type="string">
+            <column name="carr_nombre" length="50" />
+        </property>
+        <property name="carrDescripcion" type="string">
+            <column name="carr_descripcion" length="100" />
+        </property>
+        <set name="cursos" table="curso" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="carr_codigo" />
+            </key>
+            <one-to-many class="model.Curso" />
+        </set>
+        <set name="aulas" table="aula" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="carr_codigo" />
+            </key>
+            <one-to-many class="model.Aula" />
+        </set>
+        <set name="materiaSemestreCarreras" table="materia_semestre_carrera" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="carr_codigo" />
+            </key>
+            <one-to-many class="model.MateriaSemestreCarrera" />
+        </set>
+        <set name="estudiantes" table="estudiante" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="carr_codigo" />
+            </key>
+            <one-to-many class="model.Estudiante" />
+        </set>
+    </class>
+</hibernate-mapping>

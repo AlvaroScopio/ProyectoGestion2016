@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CursoCreateDlg" widgetVar="CursoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{propiedades.CreateCursoTitle}" closeOnEscape="true">
+
+            <h:form id="CursoCreateForm">
+
+                <h:panelGroup id="display" rendered="#{cursoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{propiedades.CreateCursoLabel_cursComentario}" for="cursComentario" />
+                        <p:inputText id="cursComentario" value="#{cursoController.selected.cursComentario}" title="#{propiedades.CreateCursoTitle_cursComentario}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{propiedades.CreateCursoLabel_carrCodigo}" for="carrCodigo" />
+                        <p:selectOneMenu id="carrCodigo" value="#{cursoController.selected.carrCodigo}"  converter="carreraConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{carreraController.items}"
+                                           var="carrCodigoItem"
+                                           itemValue="#{carrCodigoItem}"
+                                           itemLabel="#{carrCodigoItem.carrDescripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{propiedades.CreateCursoLabel_paraCodigo}" for="paraCodigo" />
+                        <p:selectOneMenu id="paraCodigo" value="#{cursoController.selected.paraCodigo}"  converter="paraleloConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{paraleloController.items}"
+                                           var="paraCodigoItem"
+                                           itemValue="#{paraCodigoItem}"
+                                           itemLabel="#{paraCodigoItem.paraDescripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{propiedades.CreateCursoLabel_periCodigo}" for="periCodigo" />
+                        <p:selectOneMenu id="periCodigo" value="#{cursoController.selected.periCodigo}"  converter="periodoConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{periodoController.items}"
+                                           var="periCodigoItem"
+                                           itemValue="#{periCodigoItem}"
+                                           itemLabel="#{periCodigoItem.periDescripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{propiedades.CreateCursoLabel_semeCodigo}" for="semeCodigo" />
+                        <p:selectOneMenu id="semeCodigo" value="#{cursoController.selected.semeCodigo}"  converter="semestreConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{semestreController.items}"
+                                           var="semeCodigoItem"
+                                           itemValue="#{semeCodigoItem}"
+                                           itemLabel="#{semeCodigoItem.semeDescripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cursoController.saveNew}" value="#{propiedades.Save}" update="display,:CursoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CursoCreateDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('CursoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

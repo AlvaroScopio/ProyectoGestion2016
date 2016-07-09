@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="SemestreEditDlg" widgetVar="SemestreEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.EditSemestreTitle}" closeOnEscape="true">
+
+            <h:form id="SemestreEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{semestreController.selected != null}">
+
+
+                        <h:outputLabel value="#{propiedades.EditSemestreLabel_semeCodigo}" for="semeCodigo" />
+                        <h:outputText id="semeCodigo" value="#{semestreController.selected.semeCodigo}" />
+
+                        <p:outputLabel value="#{propiedades.EditSemestreLabel_semeNombre}" for="semeNombre" />
+                        <p:inputText id="semeNombre" value="#{semestreController.selected.semeNombre}" title="#{propiedades.EditSemestreTitle_semeNombre}" size="15" maxlength="15"/>
+
+                        <p:outputLabel value="#{propiedades.EditSemestreLabel_semeDescripcion}" for="semeDescripcion" />
+                        <p:inputText id="semeDescripcion" value="#{semestreController.selected.semeDescripcion}" title="#{propiedades.EditSemestreTitle_semeDescripcion}" size="100" maxlength="100"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{semestreController.save}" value="#{propiedades.Save}" update="display,:SemestreListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('SemestreEditDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('SemestreEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

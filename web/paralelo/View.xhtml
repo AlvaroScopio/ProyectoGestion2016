@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ParaleloViewDlg" widgetVar="ParaleloViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.ViewParaleloTitle}" closeOnEscape="true">
+
+            <h:form id="ParaleloViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{paraleloController.selected != null}">
+
+                        <h:outputText value="#{propiedades.ViewParaleloLabel_paraCodigo}"/>
+                        <h:outputText value="#{paraleloController.selected.paraCodigo}" title="#{propiedades.ViewParaleloTitle_paraCodigo}"/>
+
+                        <h:outputText value="#{propiedades.ViewParaleloLabel_paraNombre}"/>
+                        <h:outputText value="#{paraleloController.selected.paraNombre}" title="#{propiedades.ViewParaleloTitle_paraNombre}"/>
+
+                        <h:outputText value="#{propiedades.ViewParaleloLabel_paraDescripcion}"/>
+                        <h:outputText value="#{paraleloController.selected.paraDescripcion}" title="#{propiedades.ViewParaleloTitle_paraDescripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{propiedades.Close}" onclick="PF('ParaleloViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

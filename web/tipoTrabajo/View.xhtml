@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoTrabajoViewDlg" widgetVar="TipoTrabajoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.ViewTipoTrabajoTitle}" closeOnEscape="true">
+
+            <h:form id="TipoTrabajoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{tipoTrabajoController.selected != null}">
+
+                        <h:outputText value="#{propiedades.ViewTipoTrabajoLabel_titrCodigo}"/>
+                        <h:outputText value="#{tipoTrabajoController.selected.titrCodigo}" title="#{propiedades.ViewTipoTrabajoTitle_titrCodigo}"/>
+
+                        <h:outputText value="#{propiedades.ViewTipoTrabajoLabel_titrNombre}"/>
+                        <h:outputText value="#{tipoTrabajoController.selected.titrNombre}" title="#{propiedades.ViewTipoTrabajoTitle_titrNombre}"/>
+
+                        <h:outputText value="#{propiedades.ViewTipoTrabajoLabel_titrDescripcion}"/>
+                        <h:outputText value="#{tipoTrabajoController.selected.titrDescripcion}" title="#{propiedades.ViewTipoTrabajoTitle_titrDescripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{propiedades.Close}" onclick="PF('TipoTrabajoViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

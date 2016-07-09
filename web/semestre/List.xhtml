@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="SemestreListForm">
+
+        <h2 align="center">Lista de Semestres</h2>
+        <hr/>
+        
+        <p:panel>
+            <p:contextMenu id="SemestreDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{propiedades.Create}" onclick="document.getElementById('SemestreListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{propiedades.View}" onclick="document.getElementById('SemestreListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{propiedades.Edit}" onclick="document.getElementById('SemestreListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{propiedades.Delete}" onclick="document.getElementById('SemestreListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{propiedades.SemestreMenuItem_materiaSemestreCarreraCollection}" icon="ui-icon-search"  action="#{semestreController.navigateMateriaSemestreCarreraCollection}" disabled="#{empty semestreController.selected.materiaSemestreCarreraCollection}" ajax="false"/>  
+            </p:contextMenu>
+            
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{propiedades.Create}" actionListener="#{semestreController.prepareCreate}" update=":SemestreCreateForm" oncomplete="PF('SemestreCreateDialog').show()"/>
+            <br/>
+            <br/>
+            
+            <p:dataTable id="datalist"
+                         value="#{semestreController.items}"
+                         lazy="false"
+                         rowKey="#{item.semeCodigo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{semestreController.selected}">
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:SemestreDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:SemestreDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('SemestreListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.semeCodigo}" filterBy="#{item.semeCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListSemestreTitle_semeCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.semeCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.semeNombre}" filterBy="#{item.semeNombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListSemestreTitle_semeNombre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.semeNombre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.semeDescripcion}" filterBy="#{item.semeDescripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListSemestreTitle_semeDescripcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.semeDescripcion}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{propiedades.View}" update=":SemestreViewForm" oncomplete="PF('SemestreViewDialog').show()" disabled="#{empty semestreController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{propiedades.Edit}" update=":SemestreEditForm" oncomplete="PF('SemestreEditDialog').show()" disabled="#{empty semestreController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{propiedades.Delete}" actionListener="#{semestreController.delete}" update=":growl,datalist" disabled="#{empty semestreController.selected}">
+                <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

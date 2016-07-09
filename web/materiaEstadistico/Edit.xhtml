@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="MateriaEstadisticoEditDlg" widgetVar="MateriaEstadisticoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.EditMateriaEstadisticoTitle}" closeOnEscape="true">
+
+            <h:form id="MateriaEstadisticoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{materiaEstadisticoController.selected != null}">
+
+
+                        <h:outputLabel value="#{propiedades.EditMateriaEstadisticoLabel_maesCodigo}" for="maesCodigo" />
+                        <h:outputText id="maesCodigo" value="#{materiaEstadisticoController.selected.maesCodigo}" />
+
+                        <p:outputLabel value="#{propiedades.EditMateriaEstadisticoLabel_maesDescripcion}" for="maesDescripcion" />
+                        <p:inputText id="maesDescripcion" value="#{materiaEstadisticoController.selected.maesDescripcion}" title="#{propiedades.EditMateriaEstadisticoTitle_maesDescripcion}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{propiedades.EditMateriaEstadisticoLabel_mateCodigo}" for="mateCodigo" />
+                        <p:selectOneMenu id="mateCodigo" value="#{materiaEstadisticoController.selected.mateCodigo}"  converter="materiaConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{materiaController.items}"
+                                           var="mateCodigoItem"
+                                           itemValue="#{mateCodigoItem}"
+                                           itemLabel="#{mateCodigoItem.mateDescripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{propiedades.EditMateriaEstadisticoLabel_periCodigo}" for="periCodigo" />
+                        <p:selectOneMenu id="periCodigo" value="#{materiaEstadisticoController.selected.periCodigo}"  converter="periodoConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{periodoController.items}"
+                                           var="periCodigoItem"
+                                           itemValue="#{periCodigoItem}"
+                                           itemLabel="#{periCodigoItem.periDescripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{materiaEstadisticoController.save}" value="#{propiedades.Save}" update="display,:MateriaEstadisticoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MateriaEstadisticoEditDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('MateriaEstadisticoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

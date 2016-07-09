@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="UsuarioViewPage" lazy="true">
+        <pm:header title="#{propiedades.ViewUsuarioTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:UsuarioListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="UsuarioViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{usuarioController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewUsuarioLabel_userCodigo}"/>
+                            <h:outputText value="#{usuarioController.selected.userCodigo}" title="#{propiedades.ViewUsuarioTitle_userCodigo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewUsuarioLabel_userNombre}"/>
+                            <h:outputText value="#{usuarioController.selected.userNombre}" title="#{propiedades.ViewUsuarioTitle_userNombre}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewUsuarioLabel_userNombreCompleto}"/>
+                            <h:outputText value="#{usuarioController.selected.userNombreCompleto}" title="#{propiedades.ViewUsuarioTitle_userNombreCompleto}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewUsuarioLabel_userPassword}"/>
+                            <h:outputText value="#{usuarioController.selected.userPassword}" title="#{propiedades.ViewUsuarioTitle_userPassword}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewUsuarioLabel_userEstado}"/>
+                            <h:outputText value="#{usuarioController.selected.userEstado}" title="#{propiedades.ViewUsuarioTitle_userEstado}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewUsuarioLabel_rolCodigo}"/>
+                            <h:outputText value="#{usuarioController.selected.rolCodigo.rolDescripcion}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

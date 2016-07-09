@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-feb-2016 18:02:33 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.Docente" table="docente" schema="public">
+        <id name="doceCodigo" type="int">
+            <column name="doce_codigo" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="dedicacion" class="model.Dedicacion" fetch="select">
+            <column name="dedi_codigo" />
+        </many-to-one>
+        <many-to-one name="tipoTrabajo" class="model.TipoTrabajo" fetch="select">
+            <column name="titr_codigo" />
+        </many-to-one>
+        <property name="doceNombres" type="string">
+            <column name="doce_nombres" length="50" />
+        </property>
+        <property name="doceApellidos" type="string">
+            <column name="doce_apellidos" length="50" />
+        </property>
+        <property name="doceCedula" type="string">
+            <column name="doce_cedula" length="10" />
+        </property>
+        <property name="doceEmailUce" type="string">
+            <column name="doce_email_uce" length="50" />
+        </property>
+        <property name="doceEmailPersonal" type="string">
+            <column name="doce_email_personal" length="50" />
+        </property>
+        <property name="doceFechaNacimiento" type="date">
+            <column name="doce_fecha_nacimiento" length="13" />
+        </property>
+        <property name="doceGenero" type="string">
+            <column name="doce_genero" length="10" />
+        </property>
+        <property name="doceTelefono" type="string">
+            <column name="doce_telefono" length="10" />
+        </property>
+        <property name="doceCelular" type="string">
+            <column name="doce_celular" length="10" />
+        </property>
+        <property name="doceDireccion" type="string">
+            <column name="doce_direccion" length="50" />
+        </property>
+        <set name="docenteMateriaCursos" table="docente_materia_curso" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="doce_codigo" />
+            </key>
+            <one-to-many class="model.DocenteMateriaCurso" />
+        </set>
+        <set name="encuestas" table="encuesta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="doce_codigo" />
+            </key>
+            <one-to-many class="model.Encuesta" />
+        </set>
+    </class>
+</hibernate-mapping>

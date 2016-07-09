@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="DedicacionViewPage" lazy="true">
+        <pm:header title="#{propiedades.ViewDedicacionTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:DedicacionListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="DedicacionViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{dedicacionController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewDedicacionLabel_dediCodigo}"/>
+                            <h:outputText value="#{dedicacionController.selected.dediCodigo}" title="#{propiedades.ViewDedicacionTitle_dediCodigo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewDedicacionLabel_dediNombre}"/>
+                            <h:outputText value="#{dedicacionController.selected.dediNombre}" title="#{propiedades.ViewDedicacionTitle_dediNombre}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewDedicacionLabel_dediDescripcion}"/>
+                            <h:outputText value="#{dedicacionController.selected.dediDescripcion}" title="#{propiedades.ViewDedicacionTitle_dediDescripcion}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

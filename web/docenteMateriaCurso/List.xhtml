@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="DocenteMateriaCursoListForm">
+
+        <p:panel header="#{propiedades.ListDocenteMateriaCursoTitle}">
+            <p:contextMenu id="DocenteMateriaCursoDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{propiedades.Create}" onclick="document.getElementById('DocenteMateriaCursoListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{propiedades.View}" onclick="document.getElementById('DocenteMateriaCursoListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{propiedades.Edit}" onclick="document.getElementById('DocenteMateriaCursoListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{propiedades.Delete}" onclick="document.getElementById('DocenteMateriaCursoListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{propiedades.DocenteMateriaCursoMenuItem_horarioCollection}" icon="ui-icon-search"  action="#{docenteMateriaCursoController.navigateHorarioCollection}" disabled="#{empty docenteMateriaCursoController.selected.horarioCollection}" ajax="false"/>  
+                <p:menuitem value="#{propiedades.DocenteMateriaCursoMenuItem_cursCodigo}" icon="ui-icon-search"  actionListener="#{docenteMateriaCursoController.prepareCursCodigo}" update=":CursoViewForm" oncomplete="PF('CursoViewDialog').show()" disabled="#{empty docenteMateriaCursoController.selected.cursCodigo}"/>  
+                <p:menuitem value="#{propiedades.DocenteMateriaCursoMenuItem_doceCodigo}" icon="ui-icon-search"  actionListener="#{docenteMateriaCursoController.prepareDoceCodigo}" update=":DocenteViewForm" oncomplete="PF('DocenteViewDialog').show()" disabled="#{empty docenteMateriaCursoController.selected.doceCodigo}"/>  
+                <p:menuitem value="#{propiedades.DocenteMateriaCursoMenuItem_mateCodigo}" icon="ui-icon-search"  actionListener="#{docenteMateriaCursoController.prepareMateCodigo}" update=":MateriaViewForm" oncomplete="PF('MateriaViewDialog').show()" disabled="#{empty docenteMateriaCursoController.selected.mateCodigo}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{docenteMateriaCursoController.items}"
+                         lazy="false"
+                         rowKey="#{item.domcCodigo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{docenteMateriaCursoController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{docenteMateriaCursoController.items}"
+                         lazy="false"
+                         rowKey="HASH{item.domcCodigo}"  <-- Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:DocenteMateriaCursoDataTableContextMenu" listener="#{docenteMateriaCursoController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:DocenteMateriaCursoDataTableContextMenu" listener="#{docenteMateriaCursoController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{docenteMateriaCursoController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('DocenteMateriaCursoListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.domcCodigo}" filterBy="#{item.domcCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListDocenteMateriaCursoTitle_domcCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.domcCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.domcComentario}" filterBy="#{item.domcComentario}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListDocenteMateriaCursoTitle_domcComentario}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.domcComentario}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cursCodigo.cursCodigo}" filterBy="#{item.cursCodigo.cursCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListDocenteMateriaCursoTitle_cursCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cursCodigo.cursCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.doceCodigo.doceCodigo}" filterBy="#{item.doceCodigo.doceCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListDocenteMateriaCursoTitle_doceCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.doceCodigo.doceCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.mateCodigo.mateDescripcion}" filterBy="#{item.mateCodigo.mateDescripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListDocenteMateriaCursoTitle_mateCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.mateCodigo.mateDescripcion}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{propiedades.Create}" actionListener="#{docenteMateriaCursoController.prepareCreate}" update=":DocenteMateriaCursoCreateForm" oncomplete="PF('DocenteMateriaCursoCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{propiedades.View}" update=":DocenteMateriaCursoViewForm" oncomplete="PF('DocenteMateriaCursoViewDialog').show()" disabled="#{empty docenteMateriaCursoController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{propiedades.Edit}" update=":DocenteMateriaCursoEditForm" oncomplete="PF('DocenteMateriaCursoEditDialog').show()" disabled="#{empty docenteMateriaCursoController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{propiedades.Delete}" actionListener="#{docenteMateriaCursoController.delete}" update=":growl,datalist" disabled="#{empty docenteMateriaCursoController.selected}">
+                <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

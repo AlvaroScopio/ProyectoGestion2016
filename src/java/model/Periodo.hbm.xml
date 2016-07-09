@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-feb-2016 18:02:33 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.Periodo" table="periodo" schema="public">
+        <id name="periCodigo" type="int">
+            <column name="peri_codigo" />
+            <generator class="assigned" />
+        </id>
+        <property name="periNombre" type="string">
+            <column name="peri_nombre" length="15" />
+        </property>
+        <property name="periVigencia" type="java.lang.Integer">
+            <column name="peri_vigencia" />
+        </property>
+        <property name="periDescripcion" type="string">
+            <column name="peri_descripcion" length="100" />
+        </property>
+        <set name="encuestas" table="encuesta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="peri_codigo" />
+            </key>
+            <one-to-many class="model.Encuesta" />
+        </set>
+        <set name="preinscripcions" table="preinscripcion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="peri_codigo" />
+            </key>
+            <one-to-many class="model.Preinscripcion" />
+        </set>
+        <set name="cursos" table="curso" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="peri_codigo" />
+            </key>
+            <one-to-many class="model.Curso" />
+        </set>
+        <set name="materiaEstadisticos" table="materia_estadistico" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="peri_codigo" />
+            </key>
+            <one-to-many class="model.MateriaEstadistico" />
+        </set>
+    </class>
+</hibernate-mapping>

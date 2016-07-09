@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MenuListPage">
+        <pm:header title="#{propiedades.ListMenuTitle}">
+            <h:form>
+                <p:commandButton id="backButton"   styleClass="ui-btn-left  ui-btn-inline" icon="ui-icon-arrow-l" value="#{myBundle.Back}" action="#{mobilePageController.navigateBackInHistory('/mobile/index')}"/>
+                <p:commandButton id="createButton" styleClass="ui-btn-right ui-btn-inline" icon="ui-icon-plus"    value="#{propiedades.Create}" update=":MenuCreatePage:MenuCreateForm" actionListener="#{menuController.prepareCreate}" action="#{mobilePageController.navigateWithHistory('pm:MenuCreatePage')}">
+                    <f:actionListener binding="#{currentPageListener}"/>
+                </p:commandButton>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MenuListForm">
+
+                <p:dataList id="datalist"
+                            paginator="true"
+                            rows="10"
+                            rowsPerPageTemplate="10,20,30,40,50"
+                            pt:data-inset="true"
+                            value="#{menuController.items}"
+                            var="item">
+
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListMenuTitle}"/>
+                    </f:facet>
+
+                    <p:commandLink update=":MenuEditPage:MenuEditForm" action="pm:MenuEditPage">
+                        <p>
+
+
+
+                            <h:outputText value="#{item.menuCodigo}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.menuPadre}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.menuNivel}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.menuOrden}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.menuNombre}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.menuUrl}"/>
+
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.menuIcono}"/>
+                            -->
+
+                            <!--
+                                ,&nbsp;
+                                                    <h:outputText value="#{item.menuEstado}"/>
+                            -->
+
+                        </p>
+                        <f:setPropertyActionListener value="#{item}" target="#{menuController.selected}" />
+                    </p:commandLink>
+
+                    <f:facet name="footer">
+                        <h:outputText value="#{propiedades.ListMenuTitle}"/>
+                    </f:facet>
+
+                </p:dataList>
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="AulaListForm">
+
+        <h2 align="center">Lista de Aulas</h2>
+        <hr/>
+
+        <p:panel>
+            <p:contextMenu id="AulaDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{propiedades.Create}" onclick="document.getElementById('AulaListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{propiedades.View}" onclick="document.getElementById('AulaListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{propiedades.Edit}" onclick="document.getElementById('AulaListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{propiedades.Delete}" onclick="document.getElementById('AulaListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{propiedades.AulaMenuItem_carrCodigo}" icon="ui-icon-search"  actionListener="#{aulaController.prepareCarrCodigo}" update=":CarreraViewForm" oncomplete="PF('CarreraViewDialog').show()" disabled="#{empty aulaController.selected.carrCodigo}"/>  
+                <p:menuitem value="#{propiedades.AulaMenuItem_edifCodigo}" icon="ui-icon-search"  actionListener="#{aulaController.prepareEdifCodigo}" update=":EdificioViewForm" oncomplete="PF('EdificioViewDialog').show()" disabled="#{empty aulaController.selected.edifCodigo}"/>  
+                <p:menuitem value="#{propiedades.AulaMenuItem_tiauCodigo}" icon="ui-icon-search"  actionListener="#{aulaController.prepareTiauCodigo}" update=":TipoAulaViewForm" oncomplete="PF('TipoAulaViewDialog').show()" disabled="#{empty aulaController.selected.tiauCodigo}"/>  
+            </p:contextMenu>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{propiedades.Create}" actionListener="#{aulaController.prepareCreate}" update=":AulaCreateForm" oncomplete="PF('AulaCreateDialog').show()"/>
+            <br/>
+            <br/>
+
+            <p:dataTable id="datalist"
+                         value="#{aulaController.items}"
+                         lazy="false"
+                         rowKey="#{item.aulaCodigo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{aulaController.selected}">
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AulaDataTableContextMenu" listener="#{aulaController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AulaDataTableContextMenu" listener="#{aulaController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{aulaController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('AulaListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.aulaCodigo}" filterBy="#{item.aulaCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListAulaTitle_aulaCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.aulaCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.aulaNombre}" filterBy="#{item.aulaNombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListAulaTitle_aulaNombre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.aulaNombre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.aulaCapacidad}" filterBy="#{item.aulaCapacidad}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListAulaTitle_aulaCapacidad}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.aulaCapacidad}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.aulaDescripcion}" filterBy="#{item.aulaDescripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListAulaTitle_aulaDescripcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.aulaDescripcion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.carrCodigo.carrNombre}" filterBy="#{item.carrCodigo.carrNombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListAulaTitle_carrCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.carrCodigo.carrNombre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.edifCodigo.edifNombre}" filterBy="#{item.edifCodigo.edifNombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListAulaTitle_edifCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.edifCodigo.edifNombre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.tiauCodigo.tiauNombre}" filterBy="#{item.tiauCodigo.tiauNombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListAulaTitle_tiauCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.tiauCodigo.tiauNombre}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{propiedades.View}" update=":AulaViewForm" oncomplete="PF('AulaViewDialog').show()" disabled="#{empty aulaController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{propiedades.Edit}" update=":AulaEditForm" oncomplete="PF('AulaEditDialog').show()" disabled="#{empty aulaController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{propiedades.Delete}" actionListener="#{aulaController.delete}" update=":growl,datalist" disabled="#{empty aulaController.selected}">
+                <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-feb-2016 18:02:33 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.DisponibilidadHoras" table="disponibilidad_horas" schema="public">
+        <id name="dihoCodigo" type="int">
+            <column name="diho_codigo" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="encuesta" class="model.Encuesta" fetch="select">
+            <column name="encu_codigo" />
+        </many-to-one>
+        <property name="dihoDia" type="string">
+            <column name="diho_dia" length="10" />
+        </property>
+        <property name="dihoHoraInicio" type="time">
+            <column name="diho_hora_inicio" length="15" />
+        </property>
+        <property name="dihoHoraFin" type="time">
+            <column name="diho_hora_fin" length="15" />
+        </property>
+    </class>
+</hibernate-mapping>

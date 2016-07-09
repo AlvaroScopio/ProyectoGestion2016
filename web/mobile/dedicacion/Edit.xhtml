@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="DedicacionEditPage" lazy="true">
+        <pm:header title="#{propiedades.EditDedicacionTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:DedicacionListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="DedicacionEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{dedicacionController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{propiedades.EditDedicacionLabel_dediCodigo}" for="dediCodigo" />
+                            <h:outputText id="dediCodigo" value="#{dedicacionController.selected.dediCodigo}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditDedicacionLabel_dediNombre}" for="dediNombre" />
+                            <p:inputText id="dediNombre" value="#{dedicacionController.selected.dediNombre}" title="#{propiedades.EditDedicacionTitle_dediNombre}" size="50" maxlength="50"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditDedicacionLabel_dediDescripcion}" for="dediDescripcion" />
+                            <p:inputText id="dediDescripcion" value="#{dedicacionController.selected.dediDescripcion}" title="#{propiedades.EditDedicacionTitle_dediDescripcion}" size="100" maxlength="100"/>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{dedicacionController.save}" value="#{propiedades.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:DedicacionListPage:DedicacionListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:DedicacionListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

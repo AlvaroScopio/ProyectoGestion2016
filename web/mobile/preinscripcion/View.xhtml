@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="PreinscripcionViewPage" lazy="true">
+        <pm:header title="#{propiedades.ViewPreinscripcionTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:PreinscripcionListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="PreinscripcionViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{preinscripcionController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewPreinscripcionLabel_preiCodigo}"/>
+                            <h:outputText value="#{preinscripcionController.selected.preiCodigo}" title="#{propiedades.ViewPreinscripcionTitle_preiCodigo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewPreinscripcionLabel_estuCodigo}"/>
+                            <h:outputText value="#{preinscripcionController.selected.estuCodigo.estuCodigo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewPreinscripcionLabel_mateCodigo}"/>
+                            <h:outputText value="#{preinscripcionController.selected.mateCodigo.mateDescripcion}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewPreinscripcionLabel_periCodigo}"/>
+                            <h:outputText value="#{preinscripcionController.selected.periCodigo.periDescripcion}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

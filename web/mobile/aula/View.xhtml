@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AulaViewPage" lazy="true">
+        <pm:header title="#{propiedades.ViewAulaTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AulaListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AulaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{aulaController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewAulaLabel_aulaCodigo}"/>
+                            <h:outputText value="#{aulaController.selected.aulaCodigo}" title="#{propiedades.ViewAulaTitle_aulaCodigo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewAulaLabel_aulaNombre}"/>
+                            <h:outputText value="#{aulaController.selected.aulaNombre}" title="#{propiedades.ViewAulaTitle_aulaNombre}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewAulaLabel_aulaCapacidad}"/>
+                            <h:outputText value="#{aulaController.selected.aulaCapacidad}" title="#{propiedades.ViewAulaTitle_aulaCapacidad}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewAulaLabel_aulaDescripcion}"/>
+                            <h:outputText value="#{aulaController.selected.aulaDescripcion}" title="#{propiedades.ViewAulaTitle_aulaDescripcion}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewAulaLabel_carrCodigo}"/>
+                            <h:outputText value="#{aulaController.selected.carrCodigo.carrDescripcion}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewAulaLabel_edifCodigo}"/>
+                            <h:outputText value="#{aulaController.selected.edifCodigo.edifDescripcion}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewAulaLabel_tiauCodigo}"/>
+                            <h:outputText value="#{aulaController.selected.tiauCodigo.tiauDescripcion}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="PeriodoEditPage" lazy="true">
+        <pm:header title="#{propiedades.EditPeriodoTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:PeriodoListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="PeriodoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{periodoController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{propiedades.EditPeriodoLabel_periCodigo}" for="periCodigo" />
+                            <h:outputText id="periCodigo" value="#{periodoController.selected.periCodigo}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditPeriodoLabel_periNombre}" for="periNombre" />
+                            <p:inputText id="periNombre" value="#{periodoController.selected.periNombre}" title="#{propiedades.EditPeriodoTitle_periNombre}" size="15" maxlength="15"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditPeriodoLabel_periVigencia}" for="periVigencia" />
+                            <p:inputText id="periVigencia" value="#{periodoController.selected.periVigencia}" title="#{propiedades.EditPeriodoTitle_periVigencia}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditPeriodoLabel_periDescripcion}" for="periDescripcion" />
+                            <p:inputText id="periDescripcion" value="#{periodoController.selected.periDescripcion}" title="#{propiedades.EditPeriodoTitle_periDescripcion}" size="100" maxlength="100"/>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{periodoController.save}" value="#{propiedades.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:PeriodoListPage:PeriodoListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:PeriodoListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

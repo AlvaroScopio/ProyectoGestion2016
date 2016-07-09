@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="HorarioListForm">
+
+        <p:panel header="#{propiedades.ListHorarioTitle}">
+            <p:contextMenu id="HorarioDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{propiedades.Create}" onclick="document.getElementById('HorarioListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{propiedades.View}" onclick="document.getElementById('HorarioListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{propiedades.Edit}" onclick="document.getElementById('HorarioListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{propiedades.Delete}" onclick="document.getElementById('HorarioListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{propiedades.HorarioMenuItem_aulaCodigo}" icon="ui-icon-search"  actionListener="#{horarioController.prepareAulaCodigo}" update=":AulaViewForm" oncomplete="PF('AulaViewDialog').show()" disabled="#{empty horarioController.selected.aulaCodigo}"/>  
+                <p:menuitem value="#{propiedades.HorarioMenuItem_domcCodigo}" icon="ui-icon-search"  actionListener="#{horarioController.prepareDomcCodigo}" update=":DocenteMateriaCursoViewForm" oncomplete="PF('DocenteMateriaCursoViewDialog').show()" disabled="#{empty horarioController.selected.domcCodigo}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{horarioController.items}"
+                         lazy="false"
+                         rowKey="#{item.horaCodigo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{horarioController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{horarioController.items}"
+                         lazy="false"
+                         rowKey="HASH{item.horaCodigo}"  <-- Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:HorarioDataTableContextMenu" listener="#{horarioController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:HorarioDataTableContextMenu" listener="#{horarioController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{horarioController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('HorarioListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.horaCodigo}" filterBy="#{item.horaCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListHorarioTitle_horaCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.horaCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.horaDia}" filterBy="#{item.horaDia}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListHorarioTitle_horaDia}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.horaDia}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.horaInicio}" filterBy="#{item.horaInicio}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListHorarioTitle_horaInicio}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.horaInicio}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.horaFin}" filterBy="#{item.horaFin}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListHorarioTitle_horaFin}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.horaFin}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.aulaCodigo.aulaDescripcion}" filterBy="#{item.aulaCodigo.aulaDescripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListHorarioTitle_aulaCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.aulaCodigo.aulaDescripcion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.domcCodigo.domcCodigo}" filterBy="#{item.domcCodigo.domcCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListHorarioTitle_domcCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.domcCodigo.domcCodigo}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{propiedades.Create}" actionListener="#{horarioController.prepareCreate}" update=":HorarioCreateForm" oncomplete="PF('HorarioCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{propiedades.View}" update=":HorarioViewForm" oncomplete="PF('HorarioViewDialog').show()" disabled="#{empty horarioController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{propiedades.Edit}" update=":HorarioEditForm" oncomplete="PF('HorarioEditDialog').show()" disabled="#{empty horarioController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{propiedades.Delete}" actionListener="#{horarioController.delete}" update=":growl,datalist" disabled="#{empty horarioController.selected}">
+                <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

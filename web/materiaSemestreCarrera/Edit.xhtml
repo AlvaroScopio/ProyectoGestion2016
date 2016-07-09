@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="MateriaSemestreCarreraEditDlg" widgetVar="MateriaSemestreCarreraEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.EditMateriaSemestreCarreraTitle}" closeOnEscape="true">
+
+            <h:form id="MateriaSemestreCarreraEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{materiaSemestreCarreraController.selected != null}">
+
+
+                        <h:outputLabel value="#{propiedades.EditMateriaSemestreCarreraLabel_mascCodigo}" for="mascCodigo" />
+                        <h:outputText id="mascCodigo" value="#{materiaSemestreCarreraController.selected.mascCodigo}" />
+
+                        <p:outputLabel value="#{propiedades.EditMateriaSemestreCarreraLabel_mascDescripcion}" for="mascDescripcion" />
+                        <p:inputText id="mascDescripcion" value="#{materiaSemestreCarreraController.selected.mascDescripcion}" title="#{propiedades.EditMateriaSemestreCarreraTitle_mascDescripcion}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{propiedades.EditMateriaSemestreCarreraLabel_carrCodigo}" for="carrCodigo" />
+                        <p:selectOneMenu id="carrCodigo" value="#{materiaSemestreCarreraController.selected.carrCodigo}"  converter="carreraConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{carreraController.items}"
+                                           var="carrCodigoItem"
+                                           itemValue="#{carrCodigoItem}"
+                                           itemLabel="#{carrCodigoItem.carrDescripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{propiedades.EditMateriaSemestreCarreraLabel_mateCodigo}" for="mateCodigo" />
+                        <p:selectOneMenu id="mateCodigo" value="#{materiaSemestreCarreraController.selected.mateCodigo}"  converter="materiaConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{materiaController.items}"
+                                           var="mateCodigoItem"
+                                           itemValue="#{mateCodigoItem}"
+                                           itemLabel="#{mateCodigoItem.mateDescripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{propiedades.EditMateriaSemestreCarreraLabel_semeCodigo}" for="semeCodigo" />
+                        <p:selectOneMenu id="semeCodigo" value="#{materiaSemestreCarreraController.selected.semeCodigo}"  converter="semestreConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{semestreController.items}"
+                                           var="semeCodigoItem"
+                                           itemValue="#{semeCodigoItem}"
+                                           itemLabel="#{semeCodigoItem.semeDescripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{materiaSemestreCarreraController.save}" value="#{propiedades.Save}" update="display,:MateriaSemestreCarreraListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MateriaSemestreCarreraEditDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('MateriaSemestreCarreraEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

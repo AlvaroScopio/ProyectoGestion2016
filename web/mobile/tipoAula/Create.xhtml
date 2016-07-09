@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="TipoAulaCreatePage" lazy="true">
+        <pm:header title="#{propiedades.CreateTipoAulaTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:TipoAulaListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="TipoAulaCreateForm">
+
+                <h:panelGroup id="display" rendered="#{tipoAulaController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.CreateTipoAulaLabel_tiauNombre}" for="tiauNombre" />
+                            <p:inputText id="tiauNombre" value="#{tipoAulaController.selected.tiauNombre}" title="#{propiedades.CreateTipoAulaTitle_tiauNombre}" size="20" maxlength="20"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.CreateTipoAulaLabel_tiauDescripcion}" for="tiauDescripcion" />
+                            <p:inputText id="tiauDescripcion" value="#{tipoAulaController.selected.tiauDescripcion}" title="#{propiedades.CreateTipoAulaTitle_tiauDescripcion}" size="50" maxlength="50"/>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{tipoAulaController.saveNew}" value="#{propiedades.Save}" update="display,:TipoAulaListPage:TipoAulaListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:TipoAulaListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

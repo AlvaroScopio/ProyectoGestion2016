@@ -1,0 +1,195 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../plantilla/plantillaMenuDinamico.xhtml">
+
+            <ui:define name="content">
+                
+                <h2 align="center">Realizar Horario</h2>
+                <hr/>
+                <br/>
+
+                <div align="center">
+
+                    <h:panelGrid columns="2">
+
+                        <h:form>
+
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="Periodo: " />
+                                <p:outputLabel value="2016 - 2016" />
+                            </h:panelGrid>
+
+                            <br/>
+
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="Carrera: " for="carrCodigo" />
+                                <p:selectOneMenu id="carrCodigo" value="#{estudianteController.selected.carrCodigo}"  converter="carreraConverter">
+                                    <f:selectItem itemLabel="Seleccione una"/>
+                                    <f:selectItems value="#{carreraController.items}"
+                                                   var="carrCodigoItem"
+                                                   itemValue="#{carrCodigoItem}"
+                                                   itemLabel="#{carrCodigoItem.carrNombre}"
+                                                   />
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+
+                            <br/>
+
+                            <h:panelGrid columns="3">
+                                <p:outputLabel value="Materia: " for="mateCodigo" />
+                                <p:selectOneMenu id="mateCodigo" value="#{disponibilidadMateriaController.selected.mateCodigo}"  converter="materiaConverter">
+                                    <f:selectItem itemLabel="Seleccione una"/>
+                                    <f:selectItems value="#{materiaController.items}"
+                                                   var="mateCodigoItem"
+                                                   itemValue="#{mateCodigoItem}"
+                                                   itemLabel="#{mateCodigoItem.mateNombre}"
+                                                   />
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+
+                            <br/>
+
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="Paralelo: " />
+                                <p:spinner id="paralelo" min="0" size="10"/>
+                            </h:panelGrid>
+
+                            <br/>
+                            <p:separator />
+                            <br/>
+
+                            <h:panelGrid columns="3">
+                                <p:outputLabel value="Docente: " for="doceCodigo" />
+                                <p:selectOneMenu id="doceCodigo" value="#{encuestaController.selected.doceCodigo}"  converter="docenteConverter">
+                                    <f:selectItem itemLabel="Seleccione uno"/>
+                                    <f:selectItems value="#{docenteController.items}"
+                                                   var="doceCodigoItem"
+                                                   itemValue="#{doceCodigoItem}"
+                                                   itemLabel="#{doceCodigoItem.doceNombres.concat(' ').concat(doceCodigoItem.doceApellidos)}"
+                                                   />
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+
+                        </h:form>
+
+                    </h:panelGrid>
+
+                </div>
+
+                <br/>
+                <p:separator />
+                <br/>
+
+                <h:form>
+
+                    <h:panelGrid columns="8" style="width:100%">
+                        <p:outputLabel value="Dia: " />
+                        <p:selectOneMenu id="dia" value="#{horarioBean.dia}" style="width:70%   ">
+                            <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="true" />
+                            <f:selectItem itemLabel="Lunes" itemValue="Lunes"/>
+                            <f:selectItem itemLabel="Martes" itemValue="Martes"/>
+                            <f:selectItem itemLabel="Miercoles" itemValue="Miercoles"/>
+                            <f:selectItem itemLabel="Jueves" itemValue="Jueves"/>
+                            <f:selectItem itemLabel="Viernes" itemValue="Viernes"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Hora Inicio: " for="dihoHoraInicio" />
+                        <p:calendar id="dihoHoraInicio" pattern="HH:mm:ss" value="#{horarioBean.horaInicio}" title="#{propiedades.CreateDisponibilidadHorasTitle_dihoHoraInicio}"  showOn="button"/>
+
+                        <p:outputLabel value="Hora Fin:" for="dihoHoraFin" />
+                        <p:calendar id="dihoHoraFin" pattern="HH:mm:ss" value="#{horarioBean.horaFin}" title="#{propiedades.CreateDisponibilidadHorasTitle_dihoHoraFin}"  showOn="button"/>
+
+                        <p:outputLabel value="Aula: " for="aulaCodigo" />
+                        <p:selectOneMenu id="aulaCodigo" value="#{horarioBean.aula}"  converter="aulaConverter">
+                            <f:selectItem itemLabel="Seleccione una"/>
+                            <f:selectItems value="#{aulaController.items}"
+                                           var="aulaCodigoItem"
+                                           itemValue="#{aulaCodigoItem}"
+                                           itemLabel="#{aulaCodigoItem.aulaNombre}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <br/>
+
+                    </h:panelGrid>
+
+                    <div align="center">
+                        <p:commandButton value="AGREGAR" action="#{horarioBean.addAction}" onclick="location = '/HorariosWeb/faces/horario/horarios.xhtml'" />
+                    </div>
+
+                    <br/>
+
+                </h:form>
+
+                <p:separator />
+
+                <br/>
+
+                <h:form>
+                    <p:dataTable value="#{horarioBean.orderList}" var="o"
+                                 styleClass="order-table" >
+
+                        <p:column>
+                            <f:facet name="header">DIA</f:facet>
+                                #{o.dia}
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">HORA INCIO</f:facet>
+                                #{o.hora_inicio}
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">HORA FIN</f:facet>
+                                #{o.hora_fin}
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">AULA</f:facet>
+                                #{o.nombreaula}
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">Quitar</f:facet>
+                            <p:commandButton value="Quitar" action="#{horarioBean.deleteAction(o)}" 
+                                             onclick="location = '/HorariosWeb/faces/horario/horarios.xhtml'" 
+                                             icon="ui-icon-delete"/>
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <br/>
+
+                    <p:separator />
+
+                    <br/>
+
+                    <div align="center">
+                        <p:commandButton value="Guardar" icon="ui-icon-circle-check" 
+                                         action="#{horarioBean.guardarAction()}" >
+                            <p:confirm header="Confirmar" message="Esta seguro de continuar?" icon="ui-icon-alert" />
+                        </p:commandButton>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+                    </div>
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

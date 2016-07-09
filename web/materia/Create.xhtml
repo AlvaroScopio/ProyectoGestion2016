@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MateriaCreateDlg" widgetVar="MateriaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{propiedades.CreateMateriaTitle}" closeOnEscape="true">
+
+            <h:form id="MateriaCreateForm">
+
+                <h:panelGroup id="display" rendered="#{materiaController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{propiedades.CreateMateriaLabel_mateNombre}" for="mateNombre" />
+                        <p:inputText id="mateNombre" value="#{materiaController.selected.mateNombre}" title="#{propiedades.CreateMateriaTitle_mateNombre}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{propiedades.CreateMateriaLabel_mateCreditos}" for="mateCreditos" />
+                        <p:inputText id="mateCreditos" value="#{materiaController.selected.mateCreditos}" title="#{propiedades.CreateMateriaTitle_mateCreditos}"/>
+
+                        <p:outputLabel value="#{propiedades.CreateMateriaLabel_mateDescripcion}" for="mateDescripcion" />
+                        <p:inputText id="mateDescripcion" value="#{materiaController.selected.mateDescripcion}" title="#{propiedades.CreateMateriaTitle_mateDescripcion}" size="100" maxlength="100"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{materiaController.saveNew}" value="#{propiedades.Save}" update="display,:MateriaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MateriaCreateDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('MateriaCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

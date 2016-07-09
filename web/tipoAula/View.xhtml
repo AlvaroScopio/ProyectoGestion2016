@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoAulaViewDlg" widgetVar="TipoAulaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.ViewTipoAulaTitle}" closeOnEscape="true">
+
+            <h:form id="TipoAulaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{tipoAulaController.selected != null}">
+
+                        <h:outputText value="#{propiedades.ViewTipoAulaLabel_tiauCodigo}"/>
+                        <h:outputText value="#{tipoAulaController.selected.tiauCodigo}" title="#{propiedades.ViewTipoAulaTitle_tiauCodigo}"/>
+
+                        <h:outputText value="#{propiedades.ViewTipoAulaLabel_tiauNombre}"/>
+                        <h:outputText value="#{tipoAulaController.selected.tiauNombre}" title="#{propiedades.ViewTipoAulaTitle_tiauNombre}"/>
+
+                        <h:outputText value="#{propiedades.ViewTipoAulaLabel_tiauDescripcion}"/>
+                        <h:outputText value="#{tipoAulaController.selected.tiauDescripcion}" title="#{propiedades.ViewTipoAulaTitle_tiauDescripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{propiedades.Close}" onclick="PF('TipoAulaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

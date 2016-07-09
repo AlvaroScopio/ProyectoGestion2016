@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-feb-2016 18:02:33 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.Preinscripcion" table="preinscripcion" schema="public">
+        <id name="preiCodigo" type="int">
+            <column name="prei_codigo" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="periodo" class="model.Periodo" fetch="select">
+            <column name="peri_codigo" />
+        </many-to-one>
+        <many-to-one name="materia" class="model.Materia" fetch="select">
+            <column name="mate_codigo" />
+        </many-to-one>
+        <many-to-one name="estudiante" class="model.Estudiante" fetch="select">
+            <column name="estu_codigo" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

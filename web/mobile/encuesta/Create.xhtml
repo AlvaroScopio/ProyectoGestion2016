@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="EncuestaCreatePage" lazy="true">
+        <pm:header title="#{propiedades.CreateEncuestaTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:EncuestaListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="EncuestaCreateForm">
+
+                <h:panelGroup id="display" rendered="#{encuestaController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.CreateEncuestaLabel_encuComentario}" for="encuComentario" />
+                            <p:inputText id="encuComentario" value="#{encuestaController.selected.encuComentario}" title="#{propiedades.CreateEncuestaTitle_encuComentario}" size="200" maxlength="200"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.CreateEncuestaLabel_doceCodigo}" for="doceCodigo" />
+                            <p:selectOneMenu id="doceCodigo" value="#{encuestaController.selected.doceCodigo}"  converter="docenteConverter">
+                                <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                                <f:selectItems value="#{docenteController.items}"
+                                               var="doceCodigoItem"
+                                               itemValue="#{doceCodigoItem}"
+                                               itemLabel="#{doceCodigoItem.doceCodigo.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.CreateEncuestaLabel_periCodigo}" for="periCodigo" />
+                            <p:selectOneMenu id="periCodigo" value="#{encuestaController.selected.periCodigo}"  converter="periodoConverter">
+                                <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                                <f:selectItems value="#{periodoController.items}"
+                                               var="periCodigoItem"
+                                               itemValue="#{periCodigoItem}"
+                                               itemLabel="#{periCodigoItem.periDescripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{encuestaController.saveNew}" value="#{propiedades.Save}" update="display,:EncuestaListPage:EncuestaListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:EncuestaListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

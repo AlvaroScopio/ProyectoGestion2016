@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="EstudianteViewPage" lazy="true">
+        <pm:header title="#{propiedades.ViewEstudianteTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:EstudianteListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="EstudianteViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{estudianteController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewEstudianteLabel_estuCodigo}"/>
+                            <h:outputText value="#{estudianteController.selected.estuCodigo}" title="#{propiedades.ViewEstudianteTitle_estuCodigo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewEstudianteLabel_estuNombres}"/>
+                            <h:outputText value="#{estudianteController.selected.estuNombres}" title="#{propiedades.ViewEstudianteTitle_estuNombres}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewEstudianteLabel_estuApellidos}"/>
+                            <h:outputText value="#{estudianteController.selected.estuApellidos}" title="#{propiedades.ViewEstudianteTitle_estuApellidos}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewEstudianteLabel_estuCedula}"/>
+                            <h:outputText value="#{estudianteController.selected.estuCedula}" title="#{propiedades.ViewEstudianteTitle_estuCedula}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewEstudianteLabel_estuEmailUce}"/>
+                            <h:outputText value="#{estudianteController.selected.estuEmailUce}" title="#{propiedades.ViewEstudianteTitle_estuEmailUce}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewEstudianteLabel_estuEmailPersonal}"/>
+                            <h:outputText value="#{estudianteController.selected.estuEmailPersonal}" title="#{propiedades.ViewEstudianteTitle_estuEmailPersonal}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewEstudianteLabel_estuFechaNacimiento}"/>
+                            <h:outputText value="#{estudianteController.selected.estuFechaNacimiento}" title="#{propiedades.ViewEstudianteTitle_estuFechaNacimiento}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewEstudianteLabel_estuGenereo}"/>
+                            <h:outputText value="#{estudianteController.selected.estuGenereo}" title="#{propiedades.ViewEstudianteTitle_estuGenereo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewEstudianteLabel_estuTelefono}"/>
+                            <h:outputText value="#{estudianteController.selected.estuTelefono}" title="#{propiedades.ViewEstudianteTitle_estuTelefono}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewEstudianteLabel_estuCelular}"/>
+                            <h:outputText value="#{estudianteController.selected.estuCelular}" title="#{propiedades.ViewEstudianteTitle_estuCelular}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewEstudianteLabel_estuDireccion}"/>
+                            <h:outputText value="#{estudianteController.selected.estuDireccion}" title="#{propiedades.ViewEstudianteTitle_estuDireccion}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewEstudianteLabel_carrCodigo}"/>
+                            <h:outputText value="#{estudianteController.selected.carrCodigo.carrDescripcion}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

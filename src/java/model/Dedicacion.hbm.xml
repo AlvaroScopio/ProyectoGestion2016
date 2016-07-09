@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-feb-2016 18:02:33 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.Dedicacion" table="dedicacion" schema="public">
+        <id name="dediCodigo" type="int">
+            <column name="dedi_codigo" />
+            <generator class="assigned" />
+        </id>
+        <property name="dediNombre" type="string">
+            <column name="dedi_nombre" length="50" />
+        </property>
+        <property name="dediDescripcion" type="string">
+            <column name="dedi_descripcion" length="100" />
+        </property>
+        <set name="docentes" table="docente" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="dedi_codigo" />
+            </key>
+            <one-to-many class="model.Docente" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="MenuEditDlg" widgetVar="MenuEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.EditMenuTitle}" closeOnEscape="true">
+
+            <h:form id="MenuEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{menuController.selected != null}">
+
+
+                        <h:outputLabel value="#{propiedades.EditMenuLabel_menuCodigo}" for="menuCodigo" />
+                        <h:outputText id="menuCodigo" value="#{menuController.selected.menuCodigo}" />
+
+                        <p:outputLabel value="#{propiedades.EditMenuLabel_menuPadre}" for="menuPadre" />
+                        <p:inputText id="menuPadre" value="#{menuController.selected.menuPadre}" title="#{propiedades.EditMenuTitle_menuPadre}"/>
+
+                        <p:outputLabel value="#{propiedades.EditMenuLabel_menuNivel}" for="menuNivel" />
+                        <p:inputText id="menuNivel" value="#{menuController.selected.menuNivel}" title="#{propiedades.EditMenuTitle_menuNivel}"/>
+
+                        <p:outputLabel value="#{propiedades.EditMenuLabel_menuOrden}" for="menuOrden" />
+                        <p:inputText id="menuOrden" value="#{menuController.selected.menuOrden}" title="#{propiedades.EditMenuTitle_menuOrden}"/>
+
+                        <p:outputLabel value="#{propiedades.EditMenuLabel_menuNombre}" for="menuNombre" />
+                        <p:inputText id="menuNombre" value="#{menuController.selected.menuNombre}" title="#{propiedades.EditMenuTitle_menuNombre}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{propiedades.EditMenuLabel_menuUrl}" for="menuUrl" />
+                        <p:inputText id="menuUrl" value="#{menuController.selected.menuUrl}" title="#{propiedades.EditMenuTitle_menuUrl}" size="200" maxlength="200"/>
+
+                        <p:outputLabel value="#{propiedades.EditMenuLabel_menuIcono}" for="menuIcono" />
+                        <p:inputText id="menuIcono" value="#{menuController.selected.menuIcono}" title="#{propiedades.EditMenuTitle_menuIcono}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{propiedades.EditMenuLabel_menuEstado}" for="menuEstado" />
+                        <p:inputText id="menuEstado" value="#{menuController.selected.menuEstado}" title="#{propiedades.EditMenuTitle_menuEstado}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{menuController.save}" value="#{propiedades.Save}" update="display,:MenuListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MenuEditDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('MenuEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

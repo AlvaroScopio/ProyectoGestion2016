@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EdificioCreateDlg" widgetVar="EdificioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{propiedades.CreateEdificioTitle}" closeOnEscape="true">
+
+            <h:form id="EdificioCreateForm">
+
+                <h:panelGroup id="display" rendered="#{edificioController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{propiedades.CreateEdificioLabel_edifNombre}" for="edifNombre" />
+                        <p:inputText id="edifNombre" value="#{edificioController.selected.edifNombre}" title="#{propiedades.CreateEdificioTitle_edifNombre}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{propiedades.CreateEdificioLabel_edifDescripcion}" for="edifDescripcion" />
+                        <p:inputText id="edifDescripcion" value="#{edificioController.selected.edifDescripcion}" title="#{propiedades.CreateEdificioTitle_edifDescripcion}" size="100" maxlength="100"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{edificioController.saveNew}" value="#{propiedades.Save}" update="display,:EdificioListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('EdificioCreateDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('EdificioCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

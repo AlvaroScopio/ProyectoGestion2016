@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="PeriodoEditDlg" widgetVar="PeriodoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.EditPeriodoTitle}" closeOnEscape="true">
+
+            <h:form id="PeriodoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{periodoController.selected != null}">
+
+
+                        <h:outputLabel value="#{propiedades.EditPeriodoLabel_periCodigo}" for="periCodigo" />
+                        <h:outputText id="periCodigo" value="#{periodoController.selected.periCodigo}" />
+
+                        <p:outputLabel value="#{propiedades.EditPeriodoLabel_periNombre}" for="periNombre" />
+                        <p:inputText id="periNombre" value="#{periodoController.selected.periNombre}" title="#{propiedades.EditPeriodoTitle_periNombre}" size="15" maxlength="15"/>
+
+                        <p:outputLabel value="#{propiedades.EditPeriodoLabel_periVigencia}" for="periVigencia" />
+                        <p:inputText id="periVigencia" value="#{periodoController.selected.periVigencia}" title="#{propiedades.EditPeriodoTitle_periVigencia}"/>
+
+                        <p:outputLabel value="#{propiedades.EditPeriodoLabel_periDescripcion}" for="periDescripcion" />
+                        <p:inputText id="periDescripcion" value="#{periodoController.selected.periDescripcion}" title="#{propiedades.EditPeriodoTitle_periDescripcion}" size="100" maxlength="100"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{periodoController.save}" value="#{propiedades.Save}" update="display,:PeriodoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PeriodoEditDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('PeriodoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-feb-2016 18:02:33 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.Estudiante" table="estudiante" schema="public">
+        <id name="estuCodigo" type="int">
+            <column name="estu_codigo" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="carrera" class="model.Carrera" fetch="select">
+            <column name="carr_codigo" />
+        </many-to-one>
+        <property name="estuNombres" type="string">
+            <column name="estu_nombres" length="50" />
+        </property>
+        <property name="estuApellidos" type="string">
+            <column name="estu_apellidos" length="50" />
+        </property>
+        <property name="estuCedula" type="string">
+            <column name="estu_cedula" length="10" />
+        </property>
+        <property name="estuEmailUce" type="string">
+            <column name="estu_email_uce" length="50" />
+        </property>
+        <property name="estuEmailPersonal" type="string">
+            <column name="estu_email_personal" length="50" />
+        </property>
+        <property name="estuFechaNacimiento" type="date">
+            <column name="estu_fecha_nacimiento" length="13" />
+        </property>
+        <property name="estuGenereo" type="string">
+            <column name="estu_genereo" length="10" />
+        </property>
+        <property name="estuTelefono" type="string">
+            <column name="estu_telefono" length="10" />
+        </property>
+        <property name="estuCelular" type="string">
+            <column name="estu_celular" length="10" />
+        </property>
+        <property name="estuDireccion" type="string">
+            <column name="estu_direccion" length="50" />
+        </property>
+        <set name="preinscripcions" table="preinscripcion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="estu_codigo" />
+            </key>
+            <one-to-many class="model.Preinscripcion" />
+        </set>
+    </class>
+</hibernate-mapping>

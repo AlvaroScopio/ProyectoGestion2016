@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MateriaSemestreCarreraViewPage" lazy="true">
+        <pm:header title="#{propiedades.ViewMateriaSemestreCarreraTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:MateriaSemestreCarreraListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MateriaSemestreCarreraViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{materiaSemestreCarreraController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewMateriaSemestreCarreraLabel_mascCodigo}"/>
+                            <h:outputText value="#{materiaSemestreCarreraController.selected.mascCodigo}" title="#{propiedades.ViewMateriaSemestreCarreraTitle_mascCodigo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewMateriaSemestreCarreraLabel_mascDescripcion}"/>
+                            <h:outputText value="#{materiaSemestreCarreraController.selected.mascDescripcion}" title="#{propiedades.ViewMateriaSemestreCarreraTitle_mascDescripcion}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewMateriaSemestreCarreraLabel_carrCodigo}"/>
+                            <h:outputText value="#{materiaSemestreCarreraController.selected.carrCodigo.carrDescripcion}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewMateriaSemestreCarreraLabel_mateCodigo}"/>
+                            <h:outputText value="#{materiaSemestreCarreraController.selected.mateCodigo.mateDescripcion}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewMateriaSemestreCarreraLabel_semeCodigo}"/>
+                            <h:outputText value="#{materiaSemestreCarreraController.selected.semeCodigo.semeDescripcion}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

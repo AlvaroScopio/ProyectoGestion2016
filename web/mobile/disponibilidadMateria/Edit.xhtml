@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="DisponibilidadMateriaEditPage" lazy="true">
+        <pm:header title="#{propiedades.EditDisponibilidadMateriaTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:DisponibilidadMateriaListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="DisponibilidadMateriaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{disponibilidadMateriaController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{propiedades.EditDisponibilidadMateriaLabel_dimaCodigo}" for="dimaCodigo" />
+                            <h:outputText id="dimaCodigo" value="#{disponibilidadMateriaController.selected.dimaCodigo}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditDisponibilidadMateriaLabel_encuCodigo}" for="encuCodigo" />
+                            <p:selectOneMenu id="encuCodigo" value="#{disponibilidadMateriaController.selected.encuCodigo}"  converter="encuestaConverter">
+                                <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                                <f:selectItems value="#{encuestaController.items}"
+                                               var="encuCodigoItem"
+                                               itemValue="#{encuCodigoItem}"
+                                               itemLabel="#{encuCodigoItem.encuCodigo.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditDisponibilidadMateriaLabel_mateCodigo}" for="mateCodigo" />
+                            <p:selectOneMenu id="mateCodigo" value="#{disponibilidadMateriaController.selected.mateCodigo}"  converter="materiaConverter">
+                                <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                                <f:selectItems value="#{materiaController.items}"
+                                               var="mateCodigoItem"
+                                               itemValue="#{mateCodigoItem}"
+                                               itemLabel="#{mateCodigoItem.mateDescripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{disponibilidadMateriaController.save}" value="#{propiedades.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:DisponibilidadMateriaListPage:DisponibilidadMateriaListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:DisponibilidadMateriaListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

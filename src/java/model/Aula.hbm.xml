@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-feb-2016 18:02:33 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.Aula" table="aula" schema="public">
+        <id name="aulaCodigo" type="int">
+            <column name="aula_codigo" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="edificio" class="model.Edificio" fetch="select">
+            <column name="edif_codigo" />
+        </many-to-one>
+        <many-to-one name="tipoAula" class="model.TipoAula" fetch="select">
+            <column name="tiau_codigo" />
+        </many-to-one>
+        <many-to-one name="carrera" class="model.Carrera" fetch="select">
+            <column name="carr_codigo" />
+        </many-to-one>
+        <property name="aulaNombre" type="string">
+            <column name="aula_nombre" length="20" />
+        </property>
+        <property name="aulaCapacidad" type="java.lang.Integer">
+            <column name="aula_capacidad" />
+        </property>
+        <property name="aulaDescripcion" type="string">
+            <column name="aula_descripcion" length="100" />
+        </property>
+        <set name="horarios" table="horario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="aula_codigo" />
+            </key>
+            <one-to-many class="model.Horario" />
+        </set>
+    </class>
+</hibernate-mapping>

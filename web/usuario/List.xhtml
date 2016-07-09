@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="UsuarioListForm">
+        
+        <h2 align="center">Lista de Usuarios</h2>
+        <hr/>
+
+        <p:panel>
+            <p:contextMenu id="UsuarioDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{propiedades.Create}" onclick="document.getElementById('UsuarioListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{propiedades.View}" onclick="document.getElementById('UsuarioListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{propiedades.Edit}" onclick="document.getElementById('UsuarioListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{propiedades.Delete}" onclick="document.getElementById('UsuarioListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{propiedades.UsuarioMenuItem_rolCodigo}" icon="ui-icon-search"  actionListener="#{usuarioController.prepareRolCodigo}" update=":RolViewForm" oncomplete="PF('RolViewDialog').show()" disabled="#{empty usuarioController.selected.rolCodigo}"/>  
+            </p:contextMenu>
+            
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{propiedades.Create}" actionListener="#{usuarioController.prepareCreate}" update=":UsuarioCreateForm" oncomplete="PF('UsuarioCreateDialog').show()"/>
+            <br/>
+            <br/>
+            
+            <p:dataTable id="datalist"
+                         value="#{usuarioController.items}"
+                         lazy="false"
+                         rowKey="#{item.userCodigo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{usuarioController.selected}">
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:UsuarioDataTableContextMenu" listener="#{usuarioController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:UsuarioDataTableContextMenu" listener="#{usuarioController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{usuarioController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('UsuarioListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.userCodigo}" filterBy="#{item.userCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListUsuarioTitle_userCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.userCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.userNombre}" filterBy="#{item.userNombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListUsuarioTitle_userNombre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.userNombre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.userNombreCompleto}" filterBy="#{item.userNombreCompleto}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListUsuarioTitle_userNombreCompleto}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.userNombreCompleto}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.userPassword}" filterBy="#{item.userPassword}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListUsuarioTitle_userPassword}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.userPassword}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.userEstado}" filterBy="#{item.userEstado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListUsuarioTitle_userEstado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.userEstado}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.rolCodigo.rolDescripcion}" filterBy="#{item.rolCodigo.rolDescripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListUsuarioTitle_rolCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.rolCodigo.rolNombre}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{propiedades.View}" update=":UsuarioViewForm" oncomplete="PF('UsuarioViewDialog').show()" disabled="#{empty usuarioController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{propiedades.Edit}" update=":UsuarioEditForm" oncomplete="PF('UsuarioEditDialog').show()" disabled="#{empty usuarioController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{propiedades.Delete}" actionListener="#{usuarioController.delete}" update=":growl,datalist" disabled="#{empty usuarioController.selected}">
+                <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

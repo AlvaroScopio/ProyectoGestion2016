@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-feb-2016 18:02:33 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.Curso" table="curso" schema="public">
+        <id name="cursCodigo" type="int">
+            <column name="curs_codigo" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="periodo" class="model.Periodo" fetch="select">
+            <column name="peri_codigo" />
+        </many-to-one>
+        <many-to-one name="carrera" class="model.Carrera" fetch="select">
+            <column name="carr_codigo" />
+        </many-to-one>
+        <many-to-one name="paralelo" class="model.Paralelo" fetch="select">
+            <column name="para_codigo" />
+        </many-to-one>
+        <many-to-one name="semestre" class="model.Semestre" fetch="select">
+            <column name="seme_codigo" />
+        </many-to-one>
+        <property name="cursComentario" type="string">
+            <column name="curs_comentario" length="100" />
+        </property>
+        <set name="docenteMateriaCursos" table="docente_materia_curso" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="curs_codigo" />
+            </key>
+            <one-to-many class="model.DocenteMateriaCurso" />
+        </set>
+    </class>
+</hibernate-mapping>

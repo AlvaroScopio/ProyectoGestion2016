@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="DedicacionListForm">
+        
+        <h2 align="center">Lista Tipos de Dedicacion</h2>
+        <hr/>
+
+        <p:panel>
+            <p:contextMenu id="DedicacionDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{propiedades.Create}" onclick="document.getElementById('DedicacionListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{propiedades.View}" onclick="document.getElementById('DedicacionListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{propiedades.Edit}" onclick="document.getElementById('DedicacionListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{propiedades.Delete}" onclick="document.getElementById('DedicacionListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{propiedades.DedicacionMenuItem_docenteCollection}" icon="ui-icon-search"  action="#{dedicacionController.navigateDocenteCollection}" disabled="#{empty dedicacionController.selected.docenteCollection}" ajax="false"/>  
+            </p:contextMenu>
+            
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{propiedades.Create}" actionListener="#{dedicacionController.prepareCreate}" update=":DedicacionCreateForm" oncomplete="PF('DedicacionCreateDialog').show()"/>
+            <br/>
+            <br/>
+            
+            <p:dataTable id="datalist"
+                         value="#{dedicacionController.items}"
+                         lazy="false"
+                         rowKey="#{item.dediCodigo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{dedicacionController.selected}">
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:DedicacionDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:DedicacionDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('DedicacionListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.dediCodigo}" filterBy="#{item.dediCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListDedicacionTitle_dediCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dediCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.dediNombre}" filterBy="#{item.dediNombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListDedicacionTitle_dediNombre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dediNombre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.dediDescripcion}" filterBy="#{item.dediDescripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListDedicacionTitle_dediDescripcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dediDescripcion}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{propiedades.View}" update=":DedicacionViewForm" oncomplete="PF('DedicacionViewDialog').show()" disabled="#{empty dedicacionController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{propiedades.Edit}" update=":DedicacionEditForm" oncomplete="PF('DedicacionEditDialog').show()" disabled="#{empty dedicacionController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{propiedades.Delete}" actionListener="#{dedicacionController.delete}" update=":growl,datalist" disabled="#{empty dedicacionController.selected}">
+                <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

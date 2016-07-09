@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="EncuestaListForm">
+
+        <p:panel header="#{propiedades.ListEncuestaTitle}">
+            <p:contextMenu id="EncuestaDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{propiedades.Create}" onclick="document.getElementById('EncuestaListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{propiedades.View}" onclick="document.getElementById('EncuestaListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{propiedades.Edit}" onclick="document.getElementById('EncuestaListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{propiedades.Delete}" onclick="document.getElementById('EncuestaListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{propiedades.EncuestaMenuItem_disponibilidadMateriaCollection}" icon="ui-icon-search"  action="#{encuestaController.navigateDisponibilidadMateriaCollection}" disabled="#{empty encuestaController.selected.disponibilidadMateriaCollection}" ajax="false"/>  
+                <p:menuitem value="#{propiedades.EncuestaMenuItem_disponibilidadHorasCollection}" icon="ui-icon-search"  action="#{encuestaController.navigateDisponibilidadHorasCollection}" disabled="#{empty encuestaController.selected.disponibilidadHorasCollection}" ajax="false"/>  
+                <p:menuitem value="#{propiedades.EncuestaMenuItem_doceCodigo}" icon="ui-icon-search"  actionListener="#{encuestaController.prepareDoceCodigo}" update=":DocenteViewForm" oncomplete="PF('DocenteViewDialog').show()" disabled="#{empty encuestaController.selected.doceCodigo}"/>  
+                <p:menuitem value="#{propiedades.EncuestaMenuItem_periCodigo}" icon="ui-icon-search"  actionListener="#{encuestaController.preparePeriCodigo}" update=":PeriodoViewForm" oncomplete="PF('PeriodoViewDialog').show()" disabled="#{empty encuestaController.selected.periCodigo}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{encuestaController.items}"
+                         lazy="false"
+                         rowKey="#{item.encuCodigo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{encuestaController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{encuestaController.items}"
+                         lazy="false"
+                         rowKey="HASH{item.encuCodigo}"  <-- Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:EncuestaDataTableContextMenu" listener="#{encuestaController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:EncuestaDataTableContextMenu" listener="#{encuestaController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{encuestaController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('EncuestaListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.encuCodigo}" filterBy="#{item.encuCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListEncuestaTitle_encuCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.encuCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.encuComentario}" filterBy="#{item.encuComentario}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListEncuestaTitle_encuComentario}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.encuComentario}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.doceCodigo.doceCodigo}" filterBy="#{item.doceCodigo.doceCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListEncuestaTitle_doceCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.doceCodigo.doceCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.periCodigo.periDescripcion}" filterBy="#{item.periCodigo.periDescripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListEncuestaTitle_periCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.periCodigo.periDescripcion}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{propiedades.Create}" actionListener="#{encuestaController.prepareCreate}" update=":EncuestaCreateForm" oncomplete="PF('EncuestaCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{propiedades.View}" update=":EncuestaViewForm" oncomplete="PF('EncuestaViewDialog').show()" disabled="#{empty encuestaController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{propiedades.Edit}" update=":EncuestaEditForm" oncomplete="PF('EncuestaEditDialog').show()" disabled="#{empty encuestaController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{propiedades.Delete}" actionListener="#{encuestaController.delete}" update=":growl,datalist" disabled="#{empty encuestaController.selected}">
+                <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

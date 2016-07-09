@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="RolEditDlg" widgetVar="RolEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.EditRolTitle}" closeOnEscape="true">
+
+            <h:form id="RolEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{rolController.selected != null}">
+
+
+                        <h:outputLabel value="#{propiedades.EditRolLabel_rolCodigo}" for="rolCodigo" />
+                        <h:outputText id="rolCodigo" value="#{rolController.selected.rolCodigo}" />
+
+                        <p:outputLabel value="#{propiedades.EditRolLabel_rolNombre}" for="rolNombre" />
+                        <p:inputText id="rolNombre" value="#{rolController.selected.rolNombre}" title="#{propiedades.EditRolTitle_rolNombre}" size="15" maxlength="15"/>
+
+                        <p:outputLabel value="#{propiedades.EditRolLabel_rolDescripcion}" for="rolDescripcion" />
+                        <p:inputText id="rolDescripcion" value="#{rolController.selected.rolDescripcion}" title="#{propiedades.EditRolTitle_rolDescripcion}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{propiedades.EditRolLabel_rolEstado}" for="rolEstado" />
+                        <p:inputText id="rolEstado" value="#{rolController.selected.rolEstado}" title="#{propiedades.EditRolTitle_rolEstado}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{rolController.save}" value="#{propiedades.Save}" update="display,:RolListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('RolEditDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('RolEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

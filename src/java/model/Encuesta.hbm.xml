@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-feb-2016 18:02:33 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.Encuesta" table="encuesta" schema="public">
+        <id name="encuCodigo" type="int">
+            <column name="encu_codigo" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="docente" class="model.Docente" fetch="select">
+            <column name="doce_codigo" />
+        </many-to-one>
+        <many-to-one name="periodo" class="model.Periodo" fetch="select">
+            <column name="peri_codigo" />
+        </many-to-one>
+        <property name="encuComentario" type="string">
+            <column name="encu_comentario" length="200" />
+        </property>
+        <set name="disponibilidadHorases" table="disponibilidad_horas" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="encu_codigo" />
+            </key>
+            <one-to-many class="model.DisponibilidadHoras" />
+        </set>
+        <set name="disponibilidadMaterias" table="disponibilidad_materia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="encu_codigo" />
+            </key>
+            <one-to-many class="model.DisponibilidadMateria" />
+        </set>
+    </class>
+</hibernate-mapping>

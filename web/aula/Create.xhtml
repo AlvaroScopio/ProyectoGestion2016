@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AulaCreateDlg" widgetVar="AulaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{propiedades.CreateAulaTitle}" closeOnEscape="true">
+
+            <h:form id="AulaCreateForm">
+
+                <h:panelGroup id="display" rendered="#{aulaController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{propiedades.CreateAulaLabel_aulaNombre}" for="aulaNombre" />
+                        <p:inputText id="aulaNombre" value="#{aulaController.selected.aulaNombre}" title="#{propiedades.CreateAulaTitle_aulaNombre}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{propiedades.CreateAulaLabel_aulaCapacidad}" for="aulaCapacidad" />
+                        <p:inputText id="aulaCapacidad" value="#{aulaController.selected.aulaCapacidad}" title="#{propiedades.CreateAulaTitle_aulaCapacidad}"/>
+
+                        <p:outputLabel value="#{propiedades.CreateAulaLabel_aulaDescripcion}" for="aulaDescripcion" />
+                        <p:inputText id="aulaDescripcion" value="#{aulaController.selected.aulaDescripcion}" title="#{propiedades.CreateAulaTitle_aulaDescripcion}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{propiedades.CreateAulaLabel_carrCodigo}" for="carrCodigo" />
+                        <p:selectOneMenu id="carrCodigo" value="#{aulaController.selected.carrCodigo}"  converter="carreraConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{carreraController.items}"
+                                           var="carrCodigoItem"
+                                           itemValue="#{carrCodigoItem}"
+                                           itemLabel="#{carrCodigoItem.carrNombre}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{propiedades.CreateAulaLabel_edifCodigo}" for="edifCodigo" />
+                        <p:selectOneMenu id="edifCodigo" value="#{aulaController.selected.edifCodigo}"  converter="edificioConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{edificioController.items}"
+                                           var="edifCodigoItem"
+                                           itemValue="#{edifCodigoItem}"
+                                           itemLabel="#{edifCodigoItem.edifNombre}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{propiedades.CreateAulaLabel_tiauCodigo}" for="tiauCodigo" />
+                        <p:selectOneMenu id="tiauCodigo" value="#{aulaController.selected.tiauCodigo}"  converter="tipoAulaConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoAulaController.items}"
+                                           var="tiauCodigoItem"
+                                           itemValue="#{tiauCodigoItem}"
+                                           itemLabel="#{tiauCodigoItem.tiauNombre}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{aulaController.saveNew}" value="#{propiedades.Save}" update="display,:AulaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('AulaCreateDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('AulaCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

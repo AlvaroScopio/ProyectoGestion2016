@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-feb-2016 18:02:33 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.Materia" table="materia" schema="public">
+        <id name="mateCodigo" type="int">
+            <column name="mate_codigo" />
+            <generator class="assigned" />
+        </id>
+        <property name="mateNombre" type="string">
+            <column name="mate_nombre" length="50" />
+        </property>
+        <property name="mateCreditos" type="java.lang.Integer">
+            <column name="mate_creditos" />
+        </property>
+        <property name="mateDescripcion" type="string">
+            <column name="mate_descripcion" length="100" />
+        </property>
+        <set name="disponibilidadMaterias" table="disponibilidad_materia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="mate_codigo" />
+            </key>
+            <one-to-many class="model.DisponibilidadMateria" />
+        </set>
+        <set name="materiaSemestreCarreras" table="materia_semestre_carrera" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="mate_codigo" />
+            </key>
+            <one-to-many class="model.MateriaSemestreCarrera" />
+        </set>
+        <set name="docenteMateriaCursos" table="docente_materia_curso" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="mate_codigo" />
+            </key>
+            <one-to-many class="model.DocenteMateriaCurso" />
+        </set>
+        <set name="preinscripcions" table="preinscripcion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="mate_codigo" />
+            </key>
+            <one-to-many class="model.Preinscripcion" />
+        </set>
+        <set name="materiaEstadisticos" table="materia_estadistico" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="mate_codigo" />
+            </key>
+            <one-to-many class="model.MateriaEstadistico" />
+        </set>
+    </class>
+</hibernate-mapping>

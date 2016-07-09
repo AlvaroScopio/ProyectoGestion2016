@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AulaEditPage" lazy="true">
+        <pm:header title="#{propiedades.EditAulaTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AulaListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AulaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{aulaController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{propiedades.EditAulaLabel_aulaCodigo}" for="aulaCodigo" />
+                            <h:outputText id="aulaCodigo" value="#{aulaController.selected.aulaCodigo}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditAulaLabel_aulaNombre}" for="aulaNombre" />
+                            <p:inputText id="aulaNombre" value="#{aulaController.selected.aulaNombre}" title="#{propiedades.EditAulaTitle_aulaNombre}" size="20" maxlength="20"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditAulaLabel_aulaCapacidad}" for="aulaCapacidad" />
+                            <p:inputText id="aulaCapacidad" value="#{aulaController.selected.aulaCapacidad}" title="#{propiedades.EditAulaTitle_aulaCapacidad}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditAulaLabel_aulaDescripcion}" for="aulaDescripcion" />
+                            <p:inputText id="aulaDescripcion" value="#{aulaController.selected.aulaDescripcion}" title="#{propiedades.EditAulaTitle_aulaDescripcion}" size="100" maxlength="100"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditAulaLabel_carrCodigo}" for="carrCodigo" />
+                            <p:selectOneMenu id="carrCodigo" value="#{aulaController.selected.carrCodigo}"  converter="carreraConverter">
+                                <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                                <f:selectItems value="#{carreraController.items}"
+                                               var="carrCodigoItem"
+                                               itemValue="#{carrCodigoItem}"
+                                               itemLabel="#{carrCodigoItem.carrDescripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditAulaLabel_edifCodigo}" for="edifCodigo" />
+                            <p:selectOneMenu id="edifCodigo" value="#{aulaController.selected.edifCodigo}"  converter="edificioConverter">
+                                <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                                <f:selectItems value="#{edificioController.items}"
+                                               var="edifCodigoItem"
+                                               itemValue="#{edifCodigoItem}"
+                                               itemLabel="#{edifCodigoItem.edifDescripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditAulaLabel_tiauCodigo}" for="tiauCodigo" />
+                            <p:selectOneMenu id="tiauCodigo" value="#{aulaController.selected.tiauCodigo}"  converter="tipoAulaConverter">
+                                <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                                <f:selectItems value="#{tipoAulaController.items}"
+                                               var="tiauCodigoItem"
+                                               itemValue="#{tiauCodigoItem}"
+                                               itemLabel="#{tiauCodigoItem.tiauDescripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{aulaController.save}" value="#{propiedades.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:AulaListPage:AulaListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:AulaListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

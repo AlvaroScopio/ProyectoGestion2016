@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="TipoAulaEditPage" lazy="true">
+        <pm:header title="#{propiedades.EditTipoAulaTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:TipoAulaListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="TipoAulaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{tipoAulaController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{propiedades.EditTipoAulaLabel_tiauCodigo}" for="tiauCodigo" />
+                            <h:outputText id="tiauCodigo" value="#{tipoAulaController.selected.tiauCodigo}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditTipoAulaLabel_tiauNombre}" for="tiauNombre" />
+                            <p:inputText id="tiauNombre" value="#{tipoAulaController.selected.tiauNombre}" title="#{propiedades.EditTipoAulaTitle_tiauNombre}" size="20" maxlength="20"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditTipoAulaLabel_tiauDescripcion}" for="tiauDescripcion" />
+                            <p:inputText id="tiauDescripcion" value="#{tipoAulaController.selected.tiauDescripcion}" title="#{propiedades.EditTipoAulaTitle_tiauDescripcion}" size="50" maxlength="50"/>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{tipoAulaController.save}" value="#{propiedades.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:TipoAulaListPage:TipoAulaListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:TipoAulaListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

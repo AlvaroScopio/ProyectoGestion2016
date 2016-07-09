@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="horarios" match-schema="public"/>
+  <table-filter match-name="materia_estadistico"/>
+  <table-filter match-name="disponibilidad_materia"/>
+  <table-filter match-name="semestre"/>
+  <table-filter match-name="horario"/>
+  <table-filter match-name="rol"/>
+  <table-filter match-name="materia_semestre_carrera"/>
+  <table-filter match-name="menu"/>
+  <table-filter match-name="materia"/>
+  <table-filter match-name="estudiante"/>
+  <table-filter match-name="tipo_trabajo"/>
+  <table-filter match-name="disponibilidad_horas"/>
+  <table-filter match-name="preinscripcion"/>
+  <table-filter match-name="dedicacion"/>
+  <table-filter match-name="rol_menu"/>
+  <table-filter match-name="docente"/>
+  <table-filter match-name="periodo"/>
+  <table-filter match-name="carrera"/>
+  <table-filter match-name="aula"/>
+  <table-filter match-name="tipo_aula"/>
+  <table-filter match-name="encuesta"/>
+  <table-filter match-name="edificio"/>
+  <table-filter match-name="paralelo"/>
+  <table-filter match-name="curso"/>
+  <table-filter match-name="usuario"/>
+  <table-filter match-name="docente_materia_curso"/>
+</hibernate-reverse-engineering>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="DisponibilidadHorasEditDlg" widgetVar="DisponibilidadHorasEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.EditDisponibilidadHorasTitle}" closeOnEscape="true">
+
+            <h:form id="DisponibilidadHorasEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{disponibilidadHorasController.selected != null}">
+
+
+                        <h:outputLabel value="#{propiedades.EditDisponibilidadHorasLabel_dihoCodigo}" for="dihoCodigo" />
+                        <h:outputText id="dihoCodigo" value="#{disponibilidadHorasController.selected.dihoCodigo}" />
+
+                        <p:outputLabel value="#{propiedades.EditDisponibilidadHorasLabel_dihoDia}" for="dihoDia" />
+                        <p:inputText id="dihoDia" value="#{disponibilidadHorasController.selected.dihoDia}" title="#{propiedades.EditDisponibilidadHorasTitle_dihoDia}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{propiedades.EditDisponibilidadHorasLabel_dihoHoraInicio}" for="dihoHoraInicio" />
+                        <p:calendar id="dihoHoraInicio" pattern="HH:mm:ss" value="#{disponibilidadHorasController.selected.dihoHoraInicio}" title="#{propiedades.EditDisponibilidadHorasTitle_dihoHoraInicio}"  showOn="button"/>
+
+                        <p:outputLabel value="#{propiedades.EditDisponibilidadHorasLabel_dihoHoraFin}" for="dihoHoraFin" />
+                        <p:calendar id="dihoHoraFin" pattern="HH:mm:ss" value="#{disponibilidadHorasController.selected.dihoHoraFin}" title="#{propiedades.EditDisponibilidadHorasTitle_dihoHoraFin}"  showOn="button"/>
+
+                        <p:outputLabel value="#{propiedades.EditDisponibilidadHorasLabel_encuCodigo}" for="encuCodigo" />
+                        <p:selectOneMenu id="encuCodigo" value="#{disponibilidadHorasController.selected.encuCodigo}"  converter="encuestaConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{encuestaController.items}"
+                                           var="encuCodigoItem"
+                                           itemValue="#{encuCodigoItem}"
+                                           itemLabel="#{encuCodigoItem.encuCodigo.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{disponibilidadHorasController.save}" value="#{propiedades.Save}" update="display,:DisponibilidadHorasListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DisponibilidadHorasEditDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('DisponibilidadHorasEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

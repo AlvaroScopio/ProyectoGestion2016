@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="DocenteMateriaCursoListPage">
+        <pm:header title="#{propiedades.ListDocenteMateriaCursoTitle}">
+            <h:form>
+                <p:commandButton id="backButton"   styleClass="ui-btn-left  ui-btn-inline" icon="ui-icon-arrow-l" value="#{myBundle.Back}" action="#{mobilePageController.navigateBackInHistory('/mobile/index')}"/>
+                <p:commandButton id="createButton" styleClass="ui-btn-right ui-btn-inline" icon="ui-icon-plus"    value="#{propiedades.Create}" update=":DocenteMateriaCursoCreatePage:DocenteMateriaCursoCreateForm" actionListener="#{docenteMateriaCursoController.prepareCreate}" action="#{mobilePageController.navigateWithHistory('pm:DocenteMateriaCursoCreatePage')}">
+                    <f:actionListener binding="#{currentPageListener}"/>
+                </p:commandButton>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="DocenteMateriaCursoListForm">
+
+                <p:dataList id="datalist"
+                            paginator="true"
+                            rows="10"
+                            rowsPerPageTemplate="10,20,30,40,50"
+                            pt:data-inset="true"
+                            value="#{docenteMateriaCursoController.items}"
+                            var="item">
+
+                    <f:facet name="header">
+                        <h:outputText value="#{propiedades.ListDocenteMateriaCursoTitle}"/>
+                    </f:facet>
+
+                    <p:commandLink update=":DocenteMateriaCursoEditPage:DocenteMateriaCursoEditForm" action="pm:DocenteMateriaCursoEditPage">
+                        <p>
+
+
+
+                            <h:outputText value="#{item.domcCodigo}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.domcComentario}"/>
+
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.cursCodigo.cursCodigo}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.doceCodigo.doceCodigo}"/>
+
+
+
+                            ,&nbsp;
+                            <h:outputText value="#{item.mateCodigo.mateDescripcion}"/>
+
+                        </p>
+                        <f:setPropertyActionListener value="#{item}" target="#{docenteMateriaCursoController.selected}" />
+                    </p:commandLink>
+
+                    <f:facet name="footer">
+                        <h:outputText value="#{propiedades.ListDocenteMateriaCursoTitle}"/>
+                    </f:facet>
+
+                </p:dataList>
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

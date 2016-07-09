@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="CursoViewPage" lazy="true">
+        <pm:header title="#{propiedades.ViewCursoTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:CursoListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="CursoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{cursoController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewCursoLabel_cursCodigo}"/>
+                            <h:outputText value="#{cursoController.selected.cursCodigo}" title="#{propiedades.ViewCursoTitle_cursCodigo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewCursoLabel_cursComentario}"/>
+                            <h:outputText value="#{cursoController.selected.cursComentario}" title="#{propiedades.ViewCursoTitle_cursComentario}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewCursoLabel_carrCodigo}"/>
+                            <h:outputText value="#{cursoController.selected.carrCodigo.carrDescripcion}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewCursoLabel_paraCodigo}"/>
+                            <h:outputText value="#{cursoController.selected.paraCodigo.paraDescripcion}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewCursoLabel_periCodigo}"/>
+                            <h:outputText value="#{cursoController.selected.periCodigo.periDescripcion}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewCursoLabel_semeCodigo}"/>
+                            <h:outputText value="#{cursoController.selected.semeCodigo.semeDescripcion}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

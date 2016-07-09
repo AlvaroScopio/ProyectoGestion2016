@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="CarreraViewPage" lazy="true">
+        <pm:header title="#{propiedades.ViewCarreraTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:CarreraListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="CarreraViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{carreraController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewCarreraLabel_carrCodigo}"/>
+                            <h:outputText value="#{carreraController.selected.carrCodigo}" title="#{propiedades.ViewCarreraTitle_carrCodigo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewCarreraLabel_carrNombre}"/>
+                            <h:outputText value="#{carreraController.selected.carrNombre}" title="#{propiedades.ViewCarreraTitle_carrNombre}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{propiedades.ViewCarreraLabel_carrDescripcion}"/>
+                            <h:outputText value="#{carreraController.selected.carrDescripcion}" title="#{propiedades.ViewCarreraTitle_carrDescripcion}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="RolMenuEditPage" lazy="true">
+        <pm:header title="#{propiedades.EditRolMenuTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{propiedades.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:RolMenuListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="RolMenuEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{rolMenuController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{propiedades.EditRolMenuLabel_romeCodigo}" for="romeCodigo" />
+                            <h:outputText id="romeCodigo" value="#{rolMenuController.selected.romeCodigo}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditRolMenuLabel_menuCodigo}" for="menuCodigo" />
+                            <p:selectOneMenu id="menuCodigo" value="#{rolMenuController.selected.menuCodigo}"  converter="menuConverter">
+                                <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                                <f:selectItems value="#{menuController.items}"
+                                               var="menuCodigoItem"
+                                               itemValue="#{menuCodigoItem}"
+                                               itemLabel="#{menuCodigoItem.menuCodigo.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{propiedades.EditRolMenuLabel_rolCodigo}" for="rolCodigo" />
+                            <p:selectOneMenu id="rolCodigo" value="#{rolMenuController.selected.rolCodigo}"  converter="rolConverter">
+                                <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                                <f:selectItems value="#{rolController.items}"
+                                               var="rolCodigoItem"
+                                               itemValue="#{rolCodigoItem}"
+                                               itemLabel="#{rolCodigoItem.rolDescripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{rolMenuController.save}" value="#{propiedades.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:RolMenuListPage:RolMenuListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:RolMenuListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

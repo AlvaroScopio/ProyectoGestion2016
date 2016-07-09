@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="HorarioEditDlg" widgetVar="HorarioEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{propiedades.EditHorarioTitle}" closeOnEscape="true">
+
+            <h:form id="HorarioEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{horarioController.selected != null}">
+
+
+                        <h:outputLabel value="#{propiedades.EditHorarioLabel_horaCodigo}" for="horaCodigo" />
+                        <h:outputText id="horaCodigo" value="#{horarioController.selected.horaCodigo}" />
+
+                        <p:outputLabel value="#{propiedades.EditHorarioLabel_horaDia}" for="horaDia" />
+                        <p:inputText id="horaDia" value="#{horarioController.selected.horaDia}" title="#{propiedades.EditHorarioTitle_horaDia}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{propiedades.EditHorarioLabel_horaInicio}" for="horaInicio" />
+                        <p:calendar id="horaInicio" pattern="HH:mm:ss" value="#{horarioController.selected.horaInicio}" title="#{propiedades.EditHorarioTitle_horaInicio}"  showOn="button"/>
+
+                        <p:outputLabel value="#{propiedades.EditHorarioLabel_horaFin}" for="horaFin" />
+                        <p:calendar id="horaFin" pattern="HH:mm:ss" value="#{horarioController.selected.horaFin}" title="#{propiedades.EditHorarioTitle_horaFin}"  showOn="button"/>
+
+                        <p:outputLabel value="#{propiedades.EditHorarioLabel_aulaCodigo}" for="aulaCodigo" />
+                        <p:selectOneMenu id="aulaCodigo" value="#{horarioController.selected.aulaCodigo}"  converter="aulaConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{aulaController.items}"
+                                           var="aulaCodigoItem"
+                                           itemValue="#{aulaCodigoItem}"
+                                           itemLabel="#{aulaCodigoItem.aulaDescripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{propiedades.EditHorarioLabel_domcCodigo}" for="domcCodigo" />
+                        <p:selectOneMenu id="domcCodigo" value="#{horarioController.selected.domcCodigo}"  converter="docenteMateriaCursoConverter">
+                            <f:selectItem itemLabel="#{propiedades.SelectOneMessage}"/>
+                            <f:selectItems value="#{docenteMateriaCursoController.items}"
+                                           var="domcCodigoItem"
+                                           itemValue="#{domcCodigoItem}"
+                                           itemLabel="#{domcCodigoItem.domcCodigo.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{horarioController.save}" value="#{propiedades.Save}" update="display,:HorarioListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('HorarioEditDialog'));">
+                        <p:confirm header="#{propiedades.ConfirmationHeader}" message="#{propiedades.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{propiedades.Cancel}" oncomplete="PF('HorarioEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
